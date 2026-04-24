@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Morgan — Game Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+
+<template id="__bundler_thumbnail" data-bg-color="#07070e">
+  <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+    <rect width="800" height="500" fill="#07070e"/>
+    <!-- grid -->
+    <line x1="0" y1="250" x2="800" y2="250" stroke="#1c1c38" stroke-width="1"/>
+    <line x1="400" y1="0" x2="400" y2="500" stroke="#1c1c38" stroke-width="1"/>
+    <!-- glow -->
+    <circle cx="200" cy="250" r="180" fill="rgba(0,229,255,0.04)"/>
+    <!-- name block -->
+    <rect x="80" y="160" width="8" height="60" fill="#00e5ff"/>
+    <rect x="100" y="170" width="200" height="18" rx="2" fill="#dde0f0" opacity="0.9"/>
+    <rect x="100" y="198" width="140" height="10" rx="2" fill="#5a5a7a" opacity="0.7"/>
+    <rect x="100" y="216" width="100" height="10" rx="2" fill="#5a5a7a" opacity="0.5"/>
+    <!-- accent line -->
+    <rect x="80" y="240" width="280" height="1" fill="#1c1c38"/>
+    <!-- stats -->
+    <rect x="80" y="256" width="30" height="22" rx="0" fill="#00e5ff" opacity="0.15"/>
+    <rect x="120" y="256" width="30" height="22" rx="0" fill="#00e5ff" opacity="0.1"/>
+    <rect x="160" y="256" width="30" height="22" rx="0" fill="#00e5ff" opacity="0.08"/>
+    <!-- project cards -->
+    <rect x="420" y="120" width="320" height="60" rx="0" fill="#0d0d1c" stroke="#1c1c38" stroke-width="1"/>
+    <rect x="420" y="120" width="320" height="2" fill="#00e5ff"/>
+    <rect x="436" y="138" width="80" height="8" rx="1" fill="#dde0f0" opacity="0.7"/>
+    <rect x="436" y="154" width="140" height="6" rx="1" fill="#5a5a7a" opacity="0.5"/>
+    <rect x="420" y="188" width="320" height="60" rx="0" fill="#0d0d1c" stroke="#1c1c38" stroke-width="1"/>
+    <rect x="420" y="188" width="320" height="2" fill="#a855f7"/>
+    <rect x="436" y="206" width="70" height="8" rx="1" fill="#dde0f0" opacity="0.7"/>
+    <rect x="436" y="222" width="120" height="6" rx="1" fill="#5a5a7a" opacity="0.5"/>
+    <rect x="420" y="256" width="320" height="60" rx="0" fill="#0d0d1c" stroke="#1c1c38" stroke-width="1"/>
+    <rect x="420" y="256" width="320" height="2" fill="#22c55e"/>
+    <rect x="436" y="274" width="90" height="8" rx="1" fill="#dde0f0" opacity="0.7"/>
+    <rect x="436" y="290" width="100" height="6" rx="1" fill="#5a5a7a" opacity="0.5"/>
+  </svg>
+</template>
+
+<script type="application/json" id="speaker-notes">[]</script>
+
+</head>
+<body>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+const { useState, useEffect, useRef } = React;
+
+// ─── DATA ───────────────────────────────────────────────────────────────────
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#00e5ff",
+  "showTimeline": true,
+  "showSkills": true,
+  "heroSubtitle": "Game Developer · Unreal & Unity · C++ · C# · Python"
+} /*EDITMODE-END*/;
+
+const content = {
+  fr: {
+    nav: ["Projets", "À Propos", "Compétences", "Parcours", "Contact"],
+    navAnchors: ["#projects", "#about", "#skills", "#timeline", "#contact"],
+    heroTag: "Développeur Jeu Vidéo",
+    heroSub: "En formation, spécialisé en programmation de jeux vidéo. Je conçois des systèmes de jeu robustes avec Unreal Engine & Unity, en C++, C# et Python.",
+    heroCta1: "Voir mes projets",
+    heroCta2: "Me contacter",
+    stats: [
+    { num: "2+", label: "Années de\nformation" },
+    { num: "7", label: "Projets\nréalisés" },
+    { num: "3", label: "Langages\nmaîtrisés" },
+    { num: "2", label: "Moteurs\nutilisés" }],
+
+    aboutLabel: "À Propos",
+    aboutTitle: "Qui suis-je ?",
+    aboutP1: "Je m'appelle Morgan, développeur jeu vidéo en formation, avec un intérêt marqué pour le gameplay programming (GPE), les mécaniques 3C, ainsi que les moteurs et l'architecture logicielle.",
+    aboutP2: "Je travaille principalement sur Unreal Engine en C++ et sur Unity en C#, tout en utilisant Python pour le développement d'outils et l'automatisation. J'accorde une attention particulière à la qualité technique de mes projets, avec une approche orientée vers des systèmes propres, modulaires et durables.",
+    aboutP3: "Actuellement en fin de cursus, j'entamerai ma dernière année en septembre. Je suis à la recherche d'une opportunité en studio afin de mettre en pratique mes compétences sur des projets concrets et évoluer dans un environnement professionnel exigeant.",
+    infoRows: [
+    { key: "Formation", val: "Développeur Jeu Vidéo", tags: [] },
+    { key: "Niveau", val: "2ème année", tags: [] },
+    { key: "Moteurs", val: "", tags: ["Unreal Engine", "Unity"] },
+    { key: "Langages", val: "", tags: ["C++", "C#", "Python"] },
+    { key: "Localisation", val: "Montpellier (France)", tags: [] },
+    { key: "Disponible", val: "Stage / Alternance 2026/2027", tags: [] }],
+
+    skillsLabel: "Compétences",
+    skillsTitle: "Stack technique",
+    skillGroups: [
+    {
+      title: "Langages",
+      skills: [
+      { name: "C++", level: 80 },
+      { name: "C# (Unity)", level: 85 },
+      { name: "Python", level: 70 },
+      { name: "Blueprint (UE)", level: 75 }]
+
+    },
+    {
+      title: "Moteurs & Outils",
+      skills: [
+      { name: "Unreal Engine 5", level: 78 },
+      { name: "Unity", level: 85 },
+      { name: "Git / P4V / Version Control", level: 72 },
+      { name: "Visual Studio / Rider", level: 80 }]
+
+    },
+    {
+      title: "Programmation Jeu",
+      skills: [
+      { name: "Gameplay Programming (GPE)", level: 94 },
+      { name: "3C (Character, Camera, Controls)", level: 75 },
+      { name: "Analyse & résolution de bugs", level: 69 },
+      { name: "Architecture de systèmes", level: 81 }]
+
+    }],
+
+    tlLabel: "Parcours",
+    tlTitle: "Mon évolution",
+    timeline: [
+    { date: "2024", title: "1ère année", sub: "Bases en C++ natif\nCréation d’un moteur de jeu type Unreal avec SFML\nPremier projet de jeu sur ce moteur\nDécouverte d’Unreal Engine\nRéalisation d’un projet de fin d’année", active: false },
+    { date: "2025", title: "2ème année", sub: "Apprentissage du C# natif puis Unity\nApprofondissement en programmation gameplay : GPE, 3C, IA, réseau\nNombreux projets courts (≈1 semaine) pour recréer des jeux\nProjet professionnel VR (1 mois) en collaboration avec La Poste\nDéveloppement de tools et optimisation de workflow\nPréproduction du projet de fin d’études", active: false },
+    { date: "2026", title: "3ème année (à venir)", sub: "Développement d’un jeu en conditions proches d’un studio (travail en équipe équipe avec différents métiers : programmeurs, game designers, level designers, graphistes)\nGestion de projet et organisation de production à long terme\nSpécialisation technique (GPE / 3C) et développement de projets personnels\nPossibilité d’alternance et de stages en entreprise", active: true }],
+
+    projectsLabel: "Projets",
+    projectsTitle: "Ce que j'ai construit",
+    viewMore: "Voir détails",
+    close: "Fermer",
+    techLabel: "Technologies",
+    links: { github: "GitHub", demo: "Démo jouable", download: "Télécharger" },
+    contactLabel: "Contact",
+    contactTitle: "Travaillons ensemble",
+    contactLead: "Je suis disponible pour un stage ou une alternance en 2025. N'hésitez pas à me contacter pour discuter de vos projets ou d'opportunités.",
+    cvTitle: "Curriculum Vitæ",
+    cvText: "Mon CV complet avec l'ensemble de mon parcours, mes compétences et mes projets.",
+    cvBtn: "Télécharger le CV",
+    footerText: "© 2025 Morgan — Game Developer"
+  },
+  en: {
+    nav: ["Projects", "About", "Skills", "Timeline", "Contact"],
+    navAnchors: ["#projects", "#about", "#skills", "#timeline", "#contact"],
+    heroTag: "Game Developer",
+    heroSub: "Training in game programming. I build robust game systems with Unreal Engine & Unity, in C++, C# and Python.",
+    heroCta1: "View Projects",
+    heroCta2: "Contact Me",
+    stats: [
+    { num: "2+", label: "Years of\ntraining" },
+    { num: "7", label: "Projects\ncompleted" },
+    { num: "3", label: "Languages\nmastered" },
+    { num: "2", label: "Engines\nused" }],
+
+    aboutLabel: "About",
+    aboutTitle: "Who am I?",
+    aboutP1: "My name is Morgan. I'm a game developer in training, passionate about game systems programming, engine work, and code architecture.",
+    aboutP2: "I work primarily with Unreal Engine (C++) and Unity (C#), with solid Python experience for tooling and scripting. My goal: build technically solid, architecturally clean game experiences.",
+    aboutP3: "I am currently in the final stages of my degree program and will begin my senior year in September. I am looking for an opportunity at a studio where I can apply my skills to real-world projects and grow in a challenging professional environment.",
+    infoRows: [
+    { key: "Degree", val: "Game Development", tags: [] },
+    { key: "Year", val: "3rd year (end 2025)", tags: [] },
+    { key: "Engines", val: "", tags: ["Unreal Engine", "Unity"] },
+    { key: "Languages", val: "", tags: ["C++", "C#", "Python"] },
+    { key: "Location", val: "Montpellier (France)", tags: [] },
+    { key: "Available", val: "Internship / Work-study 2026/2027", tags: [] }],
+
+    skillsLabel: "Skills",
+    skillsTitle: "Tech Stack",
+    skillGroups: [
+    {
+      title: "Languages",
+      skills: [
+      { name: "C++", level: 80 },
+      { name: "C# (Unity)", level: 85 },
+      { name: "Python", level: 70 },
+      { name: "Blueprint (UE)", level: 75 }]
+
+    },
+    {
+      title: "Engines & Tools",
+      skills: [
+      { name: "Unreal Engine 5", level: 78 },
+      { name: "Unity", level: 85 },
+      { name: "Git / P4V / Version Control", level: 72 },
+      { name: "Visual Studio / Rider", level: 80 }]
+
+    },
+    {
+      title: "Game Programming",
+      skills: [
+      { name: "Gameplay Programming (GPE)", level: 94 },
+      { name: "3C (Character, Camera, Controls)", level: 75 },
+      { name: "Analyse & résolution de bugs", level: 69 },
+      { name: "Architecture de systèmes", level: 81 }]
+
+    }],
+
+    tlLabel: "Timeline",
+    tlTitle: "My journey",
+    timeline: [
+    { date: "2024", title: "1st year", sub: "C++ fundamentals\nCustom Unreal-inspired game engine in SFML\nFirst complete game project on that engine\nIntroduction to Unreal Engine\nEnd-of-year project on UE", active: false },
+    { date: "2025", title: "2nd year", sub: "Native C# then Unity\nDeepened gameplay programming: GPE, 3C, AI, networking\nMany short projects (~1 week) recreating existing games\nProfessional VR project (1 month) with La Poste\nTooling & workflow optimization\nPre-production of final graduation project", active: false },
+    { date: "2026", title: "3rd year (upcoming)", sub: "Full game in studio-like conditions (multidisciplinary team)\nProject management & long-term production\nTechnical specialization (GPE / 3C) + personal projects\nInternship / work-study opportunities", active: true }],
+
+    projectsLabel: "Projects",
+    projectsTitle: "What I built",
+    viewMore: "View details",
+    close: "Close",
+    techLabel: "Technologies",
+    links: { github: "GitHub", demo: "Playable demo", download: "Download" },
+    contactLabel: "Contact",
+    contactTitle: "Let's work together",
+    contactLead: "I'm available for an internship or work-study program in 2025. Feel free to reach out to discuss your projects or any opportunities.",
+    cvTitle: "Curriculum Vitæ",
+    cvText: "My full CV with my background, skills and projects.",
+    cvBtn: "Download CV",
+    footerText: "© 2025 Morgan — Game Developer"
+  }
+};
+
+// ─── PROJECT DATA ────────────────────────────────────────────────────────────
+
+const projects = [
+{
+  id: 1,
+  accent: "#22c55e",
+  engine: "SFML",
+  type: { fr: "Projet École", en: "School Project" },
+  title: "Tank War",
+  short: { fr: "TopDown · Jeu de combat de tank", en: "Top-down · Tank fight game" },
+  desc: {
+    fr: "Jeu multijoueur local en vue de dessus développé en C++ avec un moteur de jeu custom inspiré d’Unreal Engine. L'objectif était de créer un premier jeu en une semaine avec les contraintes du moteur. Le ",
+    en: "A top-down local multiplayer game developed in C++ using a custom game engine inspired by Unreal Engine. The goal was to create a prototype game in one week within the engine’s constraints. "
+  },
+  tech: ["SFML", "C++", "Local Multiplayer", "PCG", "Git"],
+  github: "https://github.com/Nagro0m/TankWar-V2/tree/main#readme",
+  demo: null,
+  download: null,
+  media: null, // "images/tank-war.png" ou "videos/tank-war.mp4"
+},
+{
+  id: 2,
+  accent: "#a855f7",
+  engine: "Unreal Engine 5",
+  type: { fr: "Projet École", en: "School Project" },
+  title: "Void Protocol",
+  short: { fr: "FPS · IA ennemie", en: "FPS · Enemy AI" },
+  desc: {
+    fr: "FPS en vue subjective développé en équipe de 4. Responsable du système d'IA ennemie (Behavior Trees, Perception, EQS) et du Character Movement Component personnalisé. Rendu Lumen activé.",
+    en: "First-person shooter developed in a team of 4. Responsible for enemy AI system (Behavior Trees, Perception, EQS) and custom Character Movement Component. Lumen rendering enabled."
+  },
+  tech: ["Unreal Engine 5", "C++", "Blueprint", "Behavior Trees", "Lumen", "Git"],
+  github: "https://github.com/Nagro0m/TankWar-V2/tree/main",
+  demo: null,
+  download: null,
+  media: null,
+},
+{
+  id: 3,
+  accent: "#22c55e",
+  engine: "SFML",
+  type: { fr: "Prototype Technique", en: "Tech Prototype" },
+  title: "PhysicsLab",
+  short: { fr: "Moteur physique custom", en: "Custom physics engine" },
+  desc: {
+    fr: "Prototype explorant l'implémentation d'un moteur physique 2D from scratch en C#. Détection de collisions par SAT, résolution d'impulsions, intégration Verlet. Objectif : comprendre les fondamentaux avant d'utiliser les boîtes noires des moteurs.",
+    en: "Prototype exploring a custom 2D physics engine built from scratch in C#. SAT collision detection, impulse resolution, Verlet integration. Goal: understand the fundamentals before using engine black boxes."
+  },
+  tech: ["Unity", "C#", "Physics", "SAT", "Verlet Integration"],
+  github: null,
+  demo: null,
+  download: null,
+  media: null,
+},
+{
+  id: 4,
+  accent: "#00e5ff",
+  engine: "Unity",
+  type: { fr: "Game Jam", en: "Game Jam" },
+  title: "Chronorift",
+  short: { fr: "Puzzle · Mécanique temps", en: "Puzzle · Time mechanic" },
+  desc: {
+    fr: "Jeu de puzzle exploitant une mécanique de manipulation du temps. Développé seul en 72h. Système de rewind basé sur un historique d'états sérialisés, rendu post-process pour l'effet temporel.",
+    en: "Puzzle game built around a time manipulation mechanic. Solo project over 72h. Rewind system based on serialized state history, post-process rendering for the time effect."
+  },
+  tech: ["Unreal Engine 5", "C++", "Blueprint", "Post-Process", "Game Jam"],
+  github: null,
+  demo: null,
+  download: null,
+  media: null,
+},
+{
+  id: 5,
+  accent: "#ef4444",
+  engine: "Python / Unity",
+  type: { fr: "Outil / Pipeline", en: "Tool / Pipeline" },
+  title: "AssetPipe",
+  short: { fr: "Pipeline d'assets automatisé", en: "Automated asset pipeline" },
+  desc: {
+    fr: "Outil Python de génération et validation d'assets pour Unity. Automatise le nommage, l'import, la génération de meta-files et les rapports d'erreur. Réduction du temps de setup projet de 60%.",
+    en: "Python tool for asset generation and validation for Unity. Automates naming, import, meta-file generation and error reporting. Reduced project setup time by 60%."
+  },
+  tech: ["Python", "Unity", "CLI", "JSON", "Automation"],
+  github: null,
+  demo: null,
+  download: null,
+  media: null,
+}];
+
+
+// ─── COMPONENTS ──────────────────────────────────────────────────────────────
+
+function Nav({ lang, setLang, c }) {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <nav style={{ borderBottomColor: scrolled ? 'rgba(0,229,255,0.2)' : '' }}>
+      <a className="nav-logo" href="#hero">{'>'} MORGAN.DEV</a>
+      <ul className="nav-links">
+        {c.nav.map((label, i) =>
+        <li key={i}><a href={c.navAnchors[i]}>{label}</a></li>
+        )}
+      </ul>
+      <div className="lang-toggle">
+        <button className={`lang-btn ${lang === 'fr' ? 'active' : ''}`} onClick={() => setLang('fr')}>FR</button>
+        <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>EN</button>
+      </div>
+    </nav>);
+
+}
+
+function Hero({ c, tweaks }) {
+  return (
+    <section id="hero">
+      <div className="hero-grid"></div>
+      <div className="hero-glow"></div>
+      <div className="hero-content">
+        <div className="hero-tag">{c.heroTag}</div>
+        <h1 className="hero-name">
+          <span className="accent">Mo</span>rgan
+        </h1>
+        <p className="hero-title">{tweaks.heroSubtitle || c.heroSub}</p>
+        <div className="hero-ctas">
+          <a className="btn-primary" href="#projects">{c.heroCta1}</a>
+          <a className="btn-ghost" href="#contact">{c.heroCta2}</a>
+        </div>
+        <div className="hero-stats">
+          {c.stats.map((s, i) =>
+          <div key={i}>
+              <div className="hero-stat-num">{s.num}</div>
+              <div className="hero-stat-label">{s.label}</div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>);
+
+}
+
+function About({ c }) {
+  return (
+    <section id="about">
+      <div className="section-label">{c.aboutLabel}</div>
+      <h2 className="section-title">{c.aboutTitle}</h2>
+      <div className="about-grid">
+        <div className="about-text">
+          <p>{c.aboutP1}</p>
+          <p className="highlight">{c.aboutP2}</p>
+          <p>{c.aboutP3}</p>
+        </div>
+        <div className="about-side">
+          <div className="info-block">
+            {c.infoRows.map((row, i) =>
+            <div className="info-row" key={i}>
+                <div className="info-key">{row.key}</div>
+                <div className="info-val">
+                  {row.val && <span>{row.val}</span>}
+                  {row.tags.map((t, j) => <span className="tag" key={j}>{t}</span>)}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>);
+
+}
+
+function SkillBar({ level }) {
+  return (
+    <div className="skill-bar-wrap">
+      <div className="skill-bar-fill" style={{ width: `${level}%` }}></div>
+    </div>);
+
+}
+
+function Skills({ c, tweaks }) {
+  if (!tweaks.showSkills) return null;
+  return (
+    <section id="skills">
+      <div className="section-label">{c.skillsLabel}</div>
+      <h2 className="section-title">{c.skillsTitle}</h2>
+      <div className="skills-grid">
+        {c.skillGroups.map((group, gi) =>
+        <div className="skill-group" key={gi}>
+            <div className="skill-group-title">{group.title}</div>
+            {group.skills.map((skill, si) =>
+          <div className="skill-item" key={si}>
+                <span className="skill-name">{skill.name}</span>
+                <SkillBar level={skill.level} />
+              </div>
+          )}
+          </div>
+        )}
+      </div>
+    </section>);
+
+}
+
+function Timeline({ c, tweaks }) {
+  if (!tweaks.showTimeline) return null;
+  return (
+    <section id="timeline">
+      <div className="section-label">{c.tlLabel}</div>
+      <h2 className="section-title">{c.tlTitle}</h2>
+      <div className="timeline">
+        {c.timeline.map((item, i) =>
+        <div className={`timeline-item ${item.active ? 'active' : ''}`} key={i}>
+            <div className="tl-date">{item.date}</div>
+            <div className="tl-title">{item.title}</div>
+            <div className="tl-sub">{item.sub.split('\n').map((line, i) => (
+              <div key={i} className="tl-sub-item">
+                <span className="tl-sub-accent">—</span>
+                <span>{line}</span>
+              </div>
+            ))}</div>
+          </div>
+        )}
+      </div>
+    </section>);
+
+}
+
+function ProjectCard({ project, lang, c, accentColor }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div
+      className={`project-card ${open ? 'open' : ''}`}
+      style={{ '--card-accent': project.accent }}>
+      
+      <div className="project-header" onClick={() => setOpen(!open)}>
+        <div>
+          <div className="project-meta">
+            <span className="project-num">#{String(project.id).padStart(2, '0')}</span>
+            <span className="project-engine-tag">{project.engine}</span>
+            <span className="project-type-tag">{project.type[lang]}</span>
+          </div>
+          <div className="project-title-row">
+            <span className="project-name">{project.title}</span>
+            <span className="project-short">{project.short[lang]}</span>
+          </div>
+        </div>
+        <div className="project-toggle">
+          <div className="toggle-icon">+</div>
+        </div>
+      </div>
+
+      <div className="project-body">
+        <div className="project-body-inner">
+          <div>
+            <p className="project-desc">{project.desc[lang]}</p>
+            <div className="project-tech-list">
+              {project.tech.map((t, i) =>
+              <span className="tag project-tech-tag" key={i}>
+                  {t}
+                </span>
+              )}
+            </div>
+            <div className="project-links">
+              {project.github && <a className="link-btn" href={project.github} target="_blank" rel="noreferrer">⌥ {c.links.github}</a>}
+              {project.demo && <a className="link-btn" href={project.demo} target="_blank" rel="noreferrer">▶ {c.links.demo}</a>}
+              {project.download && <a className="link-btn" href={project.download}>↓ {c.links.download}</a>}
+            </div>
+          </div>
+          <div className="project-media">
+            {project.media
+              ? project.media.match(/\.(mp4|webm|ogg)$/i)
+                ? <video src={project.media} autoPlay muted loop playsInline></video>
+                : <img src={project.media} alt={project.title} />
+              : <div className="media-placeholder">
+                  <div className="media-placeholder-icon">◻</div>
+                  <div className="media-placeholder-text">SCREENSHOT / VIDEO</div>
+                </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>);
+
+}
+
+function Projects({ c, lang, tweaks }) {
+  return (
+    <div id="projects">
+      <div>
+        <div className="section-label">{c.projectsLabel}</div>
+        <h2 className="section-title">{c.projectsTitle}</h2>
+      </div>
+      <div className="projects-list">
+        {projects.map((p) =>
+        <ProjectCard key={p.id} project={p} lang={lang} c={c} accentColor={tweaks.accentColor} />
+        )}
+      </div>
+    </div>);
+
+}
+
+function Contact({ c }) {
+  return (
+    <section id="contact">
+      <div className="section-label">{c.contactLabel}</div>
+      <h2 className="section-title">{c.contactTitle}</h2>
+      <div className="contact-grid">
+        <div>
+          <p className="contact-lead">{c.contactLead}</p>
+          <div className="contact-links">
+            <a className="contact-link" href="mailto:morgan@email.com">
+              <div>
+                <div className="contact-link-label">Email</div>
+                <div className="contact-link-value">morgan@email.com</div>
+              </div>
+              <span className="contact-link-arrow">→</span>
+            </a>
+            <a className="contact-link" href="#">
+              <div>
+                <div className="contact-link-label">LinkedIn</div>
+                <div className="contact-link-value">linkedin.com/in/morgan</div>
+              </div>
+              <span className="contact-link-arrow">→</span>
+            </a>
+            <a className="contact-link" href="#">
+              <div>
+                <div className="contact-link-label">GitHub</div>
+                <div className="contact-link-value">github.com/morgan</div>
+              </div>
+              <span className="contact-link-arrow">→</span>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div className="cv-box">
+            <div className="cv-box-label">{c.cvTitle}</div>
+            <div className="cv-box-title">Morgan — Game Developer</div>
+            <p className="cv-box-text">{c.cvText}</p>
+            <a className="btn-primary" href="#">↓ {c.cvBtn}</a>
+          </div>
+        </div>
+      </div>
+    </section>);
+
+}
+
+// ─── TWEAKS PANEL ────────────────────────────────────────────────────────────
+
+function MyTweaksPanel({ tweaks, setTweak }) {
+  return (
+    <TweaksPanel>
+      <TweakSection label="Visuals">
+        <TweakColor label="Accent color" value={tweaks.accentColor} onChange={(v) => setTweak('accentColor', v)} />
+      </TweakSection>
+      <TweakSection label="Sections">
+        <TweakToggle label="Show Skills section" value={tweaks.showSkills} onChange={(v) => setTweak('showSkills', v)} />
+        <TweakToggle label="Show Timeline section" value={tweaks.showTimeline} onChange={(v) => setTweak('showTimeline', v)} />
+      </TweakSection>
+      <TweakSection label="Hero">
+        <TweakText label="Subtitle" value={tweaks.heroSubtitle} onChange={(v) => setTweak('heroSubtitle', v)} />
+      </TweakSection>
+    </TweaksPanel>);
+
+}
+
+// ─── APP ─────────────────────────────────────────────────────────────────────
+
+function App() {
+  const [lang, setLang] = useState('fr');
+  const [tweaks, setTweaks] = useTweaks(TWEAK_DEFAULTS);
+  const c = content[lang];
+
+  const setTweak = (key, val) => setTweaks((prev) => ({ ...prev, [key]: val }));
+
+  // Apply accent color CSS variable
+  useEffect(() => {
+    document.documentElement.style.setProperty('--accent', tweaks.accentColor);
+    document.documentElement.style.setProperty('--accent-dim', tweaks.accentColor + '1f');
+    document.documentElement.style.setProperty('--accent-glow', tweaks.accentColor + '59');
+  }, [tweaks.accentColor]);
+
+  return (
+    <>
+      <Nav lang={lang} setLang={setLang} c={c} />
+      <Hero c={c} tweaks={tweaks} />
+      <About c={c} />
+      <Skills c={c} tweaks={tweaks} />
+      <Timeline c={c} tweaks={tweaks} />
+      <Projects c={c} lang={lang} tweaks={tweaks} />
+      <Contact c={c} />
+      <footer>
+        <span className="footer-text">{c.footerText}</span>
+        <span className="footer-text">
+          Unreal Engine · Unity · C++ · C# · Python
+        </span>
+      </footer>
+      <MyTweaksPanel tweaks={tweaks} setTweak={setTweak} />
+    </>);
+
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
