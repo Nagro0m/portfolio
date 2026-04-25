@@ -629,6 +629,36 @@ section {
   display: block;
 }
 
+.project-media--zoomable { cursor: zoom-in; }
+
+/* ──────────────── LIGHTBOX ──────────────── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+
+.lightbox-inner {
+  max-width: 85vw;
+  max-height: 85vh;
+  cursor: default;
+  border: 1px solid var(--border);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
+}
+
+.lightbox-inner img,
+.lightbox-inner video {
+  display: block;
+  max-width: 85vw;
+  max-height: 85vh;
+  object-fit: contain;
+}
+
 .media-placeholder { text-align: center; }
 .media-placeholder-icon {
   font-size: 2rem;

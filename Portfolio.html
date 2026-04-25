@@ -246,58 +246,62 @@ const projects = [
   github: "https://github.com/Nagro0m/TankWar-V2/tree/main#readme",
   demo: null,
   download: null,
-  media: "images/TankWar.png", // "images/tank-war.png" ou "videos/tank-war.mp4"
+  links: [], // ex: [{ label: "Itch.io", url: "https://..." }]
+  media: "videos/TankWar_Video.mp4",
 },
 {
   id: 2,
   accent: "#a855f7",
-  engine: "Unreal Engine 5",
+  engine: "Unreal Engine 5.4",
   type: { fr: "Projet École", en: "School Project" },
   title: "Bamphy",
-  short: { fr: "Action Aventure · Découverte des secrets du temple d'Angkor Vat", en: "Action Adventure · Uncover the secrets of Angkor Wat" },
+  short: { fr: "Action Aventure · Découverte des secrets du temple d’Angkor Vat", en: "Action Adventure · Uncover the secrets of Angkor Wat" },
   desc: {
-    fr: "Le jeu se déroule dans une zone semi-ouverte dans laquelle le joueur doit résoudre des énigmes de réflexion, de vitesse, de mémoire, d’explorations, au cours desquelles le joueur débloquera des compétences.",
-    en: "First-person shooter developed in a team of 4. Responsible for enemy AI system (Behavior Trees, Perception, EQS) and custom Character Movement Component. Lumen rendering enabled."
+    fr: "Jeu d’action-aventure orienté réflexion basé sur des énigmes interconnectées dans un environnement inspiré d’Angkor Vat. J’ai développé les systèmes de gameplay (GPE : portes, leviers, interactions) et surtout assuré la gestion de l’équipe de développement ainsi que la coordination des trois pôles : 3C, GPE et UI, afin de garantir un résultat cohérente.",
+    en: "A puzzle-based action-adventure game featuring interconnected puzzles set in an environment inspired by Angkor Wat. I developed the gameplay systems (GPE: doors, levers, interactions) and, most importantly, managed the development team and coordinated the three departments—3C, GPE, and UI—to ensure a cohesive final product."
   },
-  tech: ["Unreal Engine 5", "C++", "Blueprint", "Behavior Trees", "Lumen", "Git"],
-  github: "https://github.com/Nagro0m/TankWar-V2/tree/main",
+  tech: ["Unreal Engine 5", "C++", "Blueprint", "Lead", "P4V"],
+  github: null,
   demo: null,
   download: null,
-  media: null,
+  links: [],
+  media: "videos/Bamphy_Video.mp4",
 },
 {
   id: 3,
-  accent: "#22c55e",
-  engine: "SFML",
-  type: { fr: "Prototype Technique", en: "Tech Prototype" },
-  title: "PhysicsLab",
-  short: { fr: "Moteur physique custom", en: "Custom physics engine" },
+  accent: "#003da5",
+  engine: "Unreal Engine 5.6",
+  type: { fr: "Projet Perso", en: "Personal Project" },
+  title: "Burger Simulator",
+  short: { fr: "Simulateur · Reproduire les mécaniques des jeux de simulation", en: "Simulator · Reproduce the mechanics of simulation games" },
   desc: {
-    fr: "Prototype explorant l'implémentation d'un moteur physique 2D from scratch en C#. Détection de collisions par SAT, résolution d'impulsions, intégration Verlet. Objectif : comprendre les fondamentaux avant d'utiliser les boîtes noires des moteurs.",
-    en: "Prototype exploring a custom 2D physics engine built from scratch in C#. SAT collision detection, impulse resolution, Verlet integration. Goal: understand the fundamentals before using engine black boxes."
+    fr: "Objectif : concevoir un jeu complet de A à Z en prenant en charge l’ensemble des systèmes (3C, GPE, UI, IA). Le projet s’inspire des jeux de simulation de restauration, avec des mécaniques de service client, préparation des commandes, gestion des stocks et livraison des ingrédients.",
+    en: "Objective: Design a complete game from start to finish, handling all systems (3C, GPE, UI, AI). The project is inspired by restaurant simulation games, featuring mechanics for customer service, order preparation, inventory management, and ingredient delivery."
   },
-  tech: ["Unity", "C#", "Physics", "SAT", "Verlet Integration"],
+  tech: ["Unreal Engine 5", "C++", "3C", "GPE", "AI", "Game Design"],
   github: null,
   demo: null,
   download: null,
-  media: null,
+  links: [{label:"GDD Google Doc", url:"https://docs.google.com/document/d/1TIpyKvB4P1GrwShKLQHoLTUEsl5WuuL7S5Pmkqc5XSM/edit?usp=sharing"}],
+  media: "videos/BurgerSimulator_Video.mp4",
 },
 {
   id: 4,
-  accent: "#00e5ff",
+  accent: "#ffcb05",
   engine: "Unity",
-  type: { fr: "Game Jam", en: "Game Jam" },
-  title: "Chronorift",
-  short: { fr: "Puzzle · Mécanique temps", en: "Puzzle · Time mechanic" },
+  type: { fr: "Projet Professionnel", en: "Game Jam" },
+  title: "La Poste VR",
+  short: { fr: "Formation VR · Modules de formation sur les dangers", en: "Puzzle · Time mechanic" },
   desc: {
-    fr: "Jeu de puzzle exploitant une mécanique de manipulation du temps. Développé seul en 72h. Système de rewind basé sur un historique d'états sérialisés, rendu post-process pour l'effet temporel.",
+    fr: "Jeu de puzzle exploitant une mécanique de manipulation du temps. Développé seul en 72h. Système de rewind basé sur un historique d’états sérialisés, rendu post-process pour l’effet temporel.",
     en: "Puzzle game built around a time manipulation mechanic. Solo project over 72h. Rewind system based on serialized state history, post-process rendering for the time effect."
   },
-  tech: ["Unreal Engine 5", "C++", "Blueprint", "Post-Process", "Game Jam"],
+  tech: ["Unity", "C#", "VR", "Serious Game", "Professional"],
   github: null,
   demo: null,
   download: null,
-  media: null,
+  links: [{label: "Linkedin", url: "https://www.linkedin.com/feed/update/urn:li:activity:7453688002704240640/"}],
+  media: "videos/LaPoste_Video.mp4",
 },
 {
   id: 5,
@@ -305,15 +309,16 @@ const projects = [
   engine: "Python / Unity",
   type: { fr: "Outil / Pipeline", en: "Tool / Pipeline" },
   title: "AssetPipe",
-  short: { fr: "Pipeline d'assets automatisé", en: "Automated asset pipeline" },
+  short: { fr: "Pipeline d’assets automatisé", en: "Automated asset pipeline" },
   desc: {
-    fr: "Outil Python de génération et validation d'assets pour Unity. Automatise le nommage, l'import, la génération de meta-files et les rapports d'erreur. Réduction du temps de setup projet de 60%.",
+    fr: "Outil Python de génération et validation d’assets pour Unity. Automatise le nommage, l’import, la génération de meta-files et les rapports d’erreur. Réduction du temps de setup projet de 60%.",
     en: "Python tool for asset generation and validation for Unity. Automates naming, import, meta-file generation and error reporting. Reduced project setup time by 60%."
   },
   tech: ["Python", "Unity", "CLI", "JSON", "Automation"],
   github: null,
   demo: null,
   download: null,
+  links: [],
   media: null,
 }];
 
@@ -457,14 +462,40 @@ function Timeline({ c, tweaks }) {
 
 }
 
-function ProjectCard({ project, lang, c, accentColor }) {
+function Lightbox({ src, title, onClose }) {
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  const isVideo = /\.(mp4|webm|ogg)$/i.test(src);
+
+  return (
+    <div className="lightbox" onClick={onClose}>
+      <div className="lightbox-inner" onClick={(e) => e.stopPropagation()}>
+        {isVideo
+          ? <video src={src} autoPlay controls loop playsInline></video>
+          : <img src={src} alt={title} />
+        }
+      </div>
+    </div>);
+
+}
+
+function ProjectCard({ project, lang, c }) {
   const [open, setOpen] = useState(false);
+  const [lightbox, setLightbox] = useState(false);
+
+  const isVideo = project.media && /\.(mp4|webm|ogg)$/i.test(project.media);
 
   return (
     <div
       className={`project-card ${open ? 'open' : ''}`}
       style={{ '--card-accent': project.accent }}>
-      
+
+      {lightbox && <Lightbox src={project.media} title={project.title} onClose={() => setLightbox(false)} />}
+
       <div className="project-header" onClick={() => setOpen(!open)}>
         <div>
           <div className="project-meta">
@@ -497,11 +528,16 @@ function ProjectCard({ project, lang, c, accentColor }) {
               {project.github && <a className="link-btn" href={project.github} target="_blank" rel="noreferrer">⌥ {c.links.github}</a>}
               {project.demo && <a className="link-btn" href={project.demo} target="_blank" rel="noreferrer">▶ {c.links.demo}</a>}
               {project.download && <a className="link-btn" href={project.download}>↓ {c.links.download}</a>}
+              {project.links && project.links.map((l, i) =>
+                <a className="link-btn" href={l.url} key={i} target="_blank" rel="noreferrer">↗ {l.label}</a>
+              )}
             </div>
           </div>
-          <div className="project-media">
+          <div
+            className={`project-media ${project.media ? 'project-media--zoomable' : ''}`}
+            onClick={project.media ? () => setLightbox(true) : undefined}>
             {project.media
-              ? project.media.match(/\.(mp4|webm|ogg)$/i)
+              ? isVideo
                 ? <video src={project.media} autoPlay muted loop playsInline></video>
                 : <img src={project.media} alt={project.title} />
               : <div className="media-placeholder">
