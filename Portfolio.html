@@ -12,23 +12,17 @@
 <template id="__bundler_thumbnail" data-bg-color="#07070e">
   <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
     <rect width="800" height="500" fill="#07070e"/>
-    <!-- grid -->
     <line x1="0" y1="250" x2="800" y2="250" stroke="#1c1c38" stroke-width="1"/>
     <line x1="400" y1="0" x2="400" y2="500" stroke="#1c1c38" stroke-width="1"/>
-    <!-- glow -->
     <circle cx="200" cy="250" r="180" fill="rgba(0,229,255,0.04)"/>
-    <!-- name block -->
     <rect x="80" y="160" width="8" height="60" fill="#00e5ff"/>
     <rect x="100" y="170" width="200" height="18" rx="2" fill="#dde0f0" opacity="0.9"/>
     <rect x="100" y="198" width="140" height="10" rx="2" fill="#5a5a7a" opacity="0.7"/>
     <rect x="100" y="216" width="100" height="10" rx="2" fill="#5a5a7a" opacity="0.5"/>
-    <!-- accent line -->
     <rect x="80" y="240" width="280" height="1" fill="#1c1c38"/>
-    <!-- stats -->
     <rect x="80" y="256" width="30" height="22" rx="0" fill="#00e5ff" opacity="0.15"/>
     <rect x="120" y="256" width="30" height="22" rx="0" fill="#00e5ff" opacity="0.1"/>
     <rect x="160" y="256" width="30" height="22" rx="0" fill="#00e5ff" opacity="0.08"/>
-    <!-- project cards -->
     <rect x="420" y="120" width="320" height="60" rx="0" fill="#0d0d1c" stroke="#1c1c38" stroke-width="1"/>
     <rect x="420" y="120" width="320" height="2" fill="#00e5ff"/>
     <rect x="436" y="138" width="80" height="8" rx="1" fill="#dde0f0" opacity="0.7"/>
@@ -45,630 +39,343 @@
 </template>
 
 <script type="application/json" id="speaker-notes">[]</script>
-
 </head>
 <body>
 
+<!-- Data -->
+<script src="content.js"></script>
+
+<!-- React + Babel -->
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<!-- Components (plain JS, no JSX) -->
+<script src="components.js"></script>
 
 <div id="root"></div>
 
+<!-- Tweaks panel (JSX — doit rester inline) + render -->
 <script type="text/babel">
 
-const { useState, useEffect, useRef } = React;
+//#region Tweak Style
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+  .twk-field{appearance:none;width:100%;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;height:22px;
+    border-radius:6px;cursor:default;padding:0}
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+  .twk-num{display:flex;align-items:center;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+`;
 
-// ─── DATA ───────────────────────────────────────────────────────────────────
-
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "accentColor": "#00e5ff",
-  "showTimeline": true,
-  "showSkills": true,
-  "heroSubtitle": "Game Developer · Unreal & Unity · C++ · C# · Python"
-} /*EDITMODE-END*/;
-
-const content = {
-  fr: {
-    nav: ["Projets", "À Propos", "Compétences", "Parcours", "Contact"],
-    navAnchors: ["#projects", "#about", "#skills", "#timeline", "#contact"],
-    heroTag: "Développeur Jeu Vidéo",
-    heroSub: "En formation, spécialisé en programmation de jeux vidéo. Je conçois des systèmes de jeu robustes avec Unreal Engine & Unity, en C++, C# et Python.",
-    heroCta1: "Voir mes projets",
-    heroCta2: "Me contacter",
-    stats: [
-    { num: "2+", label: "Années de\nformation" },
-    { num: "7", label: "Projets\nréalisés" },
-    { num: "3", label: "Langages\nmaîtrisés" },
-    { num: "2", label: "Moteurs\nutilisés" }],
-
-    aboutLabel: "À Propos",
-    aboutTitle: "Qui suis-je ?",
-    aboutP1: "Je m'appelle Morgan, développeur jeu vidéo en formation, avec un intérêt marqué pour le gameplay programming (GPE), les mécaniques 3C, ainsi que les moteurs et l'architecture logicielle.",
-    aboutP2: "Je travaille principalement sur Unreal Engine en C++ et sur Unity en C#, tout en utilisant Python pour le développement d'outils et l'automatisation. J'accorde une attention particulière à la qualité technique de mes projets, avec une approche orientée vers des systèmes propres, modulaires et durables.",
-    aboutP3: "Actuellement en fin de cursus, j'entamerai ma dernière année en septembre. Je suis à la recherche d'une opportunité en studio afin de mettre en pratique mes compétences sur des projets concrets et évoluer dans un environnement professionnel exigeant.",
-    infoRows: [
-    { key: "Formation", val: "Développeur Jeu Vidéo", tags: [] },
-    { key: "Niveau", val: "2ème année", tags: [] },
-    { key: "Moteurs", val: "", tags: ["Unreal Engine", "Unity"] },
-    { key: "Langages", val: "", tags: ["C++", "C#", "Python"] },
-    { key: "Localisation", val: "Montpellier (France)", tags: [] },
-    { key: "Disponible", val: "Stage / Alternance 2026/2027", tags: [] }],
-
-    skillsLabel: "Compétences",
-    skillsTitle: "Stack technique",
-    skillGroups: [
-    {
-      title: "Langages",
-      skills: [
-      { name: "C++", level: 80 },
-      { name: "C# (Unity)", level: 85 },
-      { name: "Python", level: 70 },
-      { name: "Blueprint (UE)", level: 75 }]
-
-    },
-    {
-      title: "Moteurs & Outils",
-      skills: [
-      { name: "Unreal Engine 5", level: 78 },
-      { name: "Unity", level: 85 },
-      { name: "Git / P4V / Version Control", level: 72 },
-      { name: "Visual Studio / Rider", level: 80 }]
-
-    },
-    {
-      title: "Programmation Jeu",
-      skills: [
-      { name: "Gameplay Programming (GPE)", level: 94 },
-      { name: "3C (Character, Camera, Controls)", level: 75 },
-      { name: "Analyse & résolution de bugs", level: 69 },
-      { name: "Architecture de systèmes", level: 81 }]
-
-    }],
-
-    tlLabel: "Parcours",
-    tlTitle: "Mon évolution",
-    timeline: [
-    { date: "2024", title: "1ère année", sub: "Bases en C++ natif\nCréation d’un moteur de jeu type Unreal avec SFML\nPremier projet de jeu sur ce moteur\nDécouverte d’Unreal Engine\nRéalisation d’un projet de fin d’année", active: false },
-    { date: "2025", title: "2ème année", sub: "Apprentissage du C# natif puis Unity\nApprofondissement en programmation gameplay : GPE, 3C, IA, réseau\nNombreux projets courts (≈1 semaine) pour recréer des jeux\nProjet professionnel VR (1 mois) en collaboration avec La Poste\nDéveloppement de tools et optimisation de workflow\nPréproduction du projet de fin d’études", active: false },
-    { date: "2026", title: "3ème année (à venir)", sub: "Développement d’un jeu en conditions proches d’un studio (travail en équipe équipe avec différents métiers : programmeurs, game designers, level designers, graphistes)\nGestion de projet et organisation de production à long terme\nSpécialisation technique (GPE / 3C) et développement de projets personnels\nPossibilité d’alternance et de stages en entreprise", active: true }],
-
-    projectsLabel: "Projets",
-    projectsTitle: "Ce que j'ai construit",
-    viewMore: "Voir détails",
-    close: "Fermer",
-    techLabel: "Technologies",
-    links: { github: "GitHub", demo: "Démo jouable", download: "Télécharger" },
-    contactLabel: "Contact",
-    contactTitle: "Travaillons ensemble",
-    contactLead: "Je suis disponible pour un stage ou une alternance en 2026. N'hésitez pas à me contacter pour discuter de vos projets ou d'opportunités.",
-    cvTitle: "Curriculum Vitae",
-    cvText: "Mon CV complet avec l'ensemble de mon parcours, mes compétences et mes projets.",
-    cvBtn: "Télécharger le CV",
-    footerText: "© 2026 Morgan — Game Developer"
-  },
-  en: {
-    nav: ["Projects", "About", "Skills", "Timeline", "Contact"],
-    navAnchors: ["#projects", "#about", "#skills", "#timeline", "#contact"],
-    heroTag: "Game Developer",
-    heroSub: "Training in game programming. I build robust game systems with Unreal Engine & Unity, in C++, C# and Python.",
-    heroCta1: "View Projects",
-    heroCta2: "Contact Me",
-    stats: [
-    { num: "2+", label: "Years of\ntraining" },
-    { num: "7", label: "Projects\ncompleted" },
-    { num: "3", label: "Languages\nmastered" },
-    { num: "2", label: "Engines\nused" }],
-
-    aboutLabel: "About",
-    aboutTitle: "Who am I?",
-    aboutP1: "My name is Morgan. I'm a game developer in training, passionate about game systems programming, engine work, and code architecture.",
-    aboutP2: "I work primarily with Unreal Engine (C++) and Unity (C#), with solid Python experience for tooling and scripting. My goal: build technically solid, architecturally clean game experiences.",
-    aboutP3: "I am currently in the final stages of my degree program and will begin my senior year in September. I am looking for an opportunity at a studio where I can apply my skills to real-world projects and grow in a challenging professional environment.",
-    infoRows: [
-    { key: "Degree", val: "Game Development", tags: [] },
-    { key: "Year", val: "3rd year (end 2025)", tags: [] },
-    { key: "Engines", val: "", tags: ["Unreal Engine", "Unity"] },
-    { key: "Languages", val: "", tags: ["C++", "C#", "Python"] },
-    { key: "Location", val: "Montpellier (France)", tags: [] },
-    { key: "Available", val: "Internship / Work-study 2026/2027", tags: [] }],
-
-    skillsLabel: "Skills",
-    skillsTitle: "Tech Stack",
-    skillGroups: [
-    {
-      title: "Languages",
-      skills: [
-      { name: "C++", level: 80 },
-      { name: "C# (Unity)", level: 85 },
-      { name: "Python", level: 70 },
-      { name: "Blueprint (UE)", level: 75 }]
-
-    },
-    {
-      title: "Engines & Tools",
-      skills: [
-      { name: "Unreal Engine 5", level: 78 },
-      { name: "Unity", level: 85 },
-      { name: "Git / P4V / Version Control", level: 72 },
-      { name: "Visual Studio / Rider", level: 80 }]
-
-    },
-    {
-      title: "Game Programming",
-      skills: [
-      { name: "Gameplay Programming (GPE)", level: 94 },
-      { name: "3C (Character, Camera, Controls)", level: 75 },
-      { name: "Analyse & résolution de bugs", level: 69 },
-      { name: "Architecture de systèmes", level: 81 }]
-
-    }],
-
-    tlLabel: "Timeline",
-    tlTitle: "My journey",
-    timeline: [
-    { date: "2024", title: "1st year", sub: "C++ fundamentals\nCustom Unreal-inspired game engine in SFML\nFirst complete game project on that engine\nIntroduction to Unreal Engine\nEnd-of-year project on UE", active: false },
-    { date: "2025", title: "2nd year", sub: "Native C# then Unity\nDeepened gameplay programming: GPE, 3C, AI, networking\nMany short projects (~1 week) recreating existing games\nProfessional VR project (1 month) with La Poste\nTooling & workflow optimization\nPre-production of final graduation project", active: false },
-    { date: "2026", title: "3rd year (upcoming)", sub: "Full game in studio-like conditions (multidisciplinary team)\nProject management & long-term production\nTechnical specialization (GPE / 3C) + personal projects\nInternship / work-study opportunities", active: true }],
-
-    projectsLabel: "Projects",
-    projectsTitle: "What I built",
-    viewMore: "View details",
-    close: "Close",
-    techLabel: "Technologies",
-    links: { github: "GitHub", demo: "Playable demo", download: "Download" },
-    contactLabel: "Contact",
-    contactTitle: "Let's work together",
-    contactLead: "I'm available for an internship or work-study program in 2026. Feel free to reach out to discuss your projects or any opportunities.",
-    cvTitle: "Curriculum Vitae",
-    cvText: "My full CV with my background, skills and projects.",
-    cvBtn: "Download CV",
-    footerText: "© 2026 Morgan — Game Developer"
-  }
-};
-
-// ─── PROJECT DATA ────────────────────────────────────────────────────────────
-
-const projects = [
-{
-  id: 1,
-  accent: "#22c55e",
-  engine: "SFML",
-  type: { fr: "Projet École", en: "School Project" },
-  title: "Tank War",
-  short: { fr: "TopDown · Jeu de combat de tank", en: "Top-down · Tank fight game" },
-  desc: {
-    fr: "Jeu multijoueur local en vue de dessus développé en C++ avec un moteur de jeu custom inspiré d’Unreal Engine. L'objectif était de créer un premier jeu en une semaine avec les contraintes du moteur.",
-    en: "A top-down local multiplayer game developed in C++ using a custom game engine inspired by Unreal Engine. The goal was to create a prototype game in one week within the engine’s constraints. "
-  },
-  tech: ["SFML", "C++", "Local Multiplayer", "PCG", "Git"],
-  github: "https://github.com/Nagro0m/TankWar-V2/tree/main#readme",
-  demo: null,
-  download: null,
-  links: [], // ex: [{ label: "Itch.io", url: "https://..." }]
-  media: "videos/TankWar_Video.mp4",
-},
-{
-  id: 2,
-  accent: "#a855f7",
-  engine: "Unreal Engine 5.4",
-  type: { fr: "Projet École", en: "School Project" },
-  title: "Bamphy",
-  short: { fr: "Action Aventure · Découverte des secrets du temple d’Angkor Vat", en: "Action Adventure · Uncover the secrets of Angkor Wat" },
-  desc: {
-    fr: "Jeu d’action-aventure orienté réflexion basé sur des énigmes interconnectées dans un environnement inspiré d’Angkor Vat. J’ai développé les systèmes de gameplay (GPE : portes, leviers, interactions) et surtout assuré la gestion de l’équipe de développement ainsi que la coordination des trois pôles : 3C, GPE et UI, afin de garantir un résultat cohérente.",
-    en: "A puzzle-based action-adventure game featuring interconnected puzzles set in an environment inspired by Angkor Wat. I developed the gameplay systems (GPE: doors, levers, interactions) and, most importantly, managed the development team and coordinated the three departments—3C, GPE, and UI—to ensure a cohesive final product."
-  },
-  tech: ["Unreal Engine 5", "C++", "Blueprint", "Lead", "P4V"],
-  github: null,
-  demo: null,
-  download: null,
-  links: [],
-  media: "videos/Bamphy_Video.mp4",
-},
-{
-  id: 3,
-  accent: "#003da5",
-  engine: "Unreal Engine 5.6",
-  type: { fr: "Projet Perso", en: "Personal Project" },
-  title: "Burger Simulator",
-  short: { fr: "Simulateur · Reproduire les mécaniques des jeux de simulation", en: "Simulator · Reproduce the mechanics of simulation games" },
-  desc: {
-    fr: "Objectif : concevoir un jeu complet de A à Z en prenant en charge l’ensemble des systèmes (3C, GPE, UI, IA). Le projet s’inspire des jeux de simulation de restauration, avec des mécaniques de service client, préparation des commandes, gestion des stocks et livraison des ingrédients.",
-    en: "Objective: Design a complete game from start to finish, handling all systems (3C, GPE, UI, AI). The project is inspired by restaurant simulation games, featuring mechanics for customer service, order preparation, inventory management, and ingredient delivery."
-  },
-  tech: ["Unreal Engine 5", "C++", "3C", "GPE", "AI", "Game Design"],
-  github: null,
-  demo: null,
-  download: null,
-  links: [{label:"GDD Google Doc", url:"https://docs.google.com/document/d/1TIpyKvB4P1GrwShKLQHoLTUEsl5WuuL7S5Pmkqc5XSM/edit?usp=sharing"}],
-  media: "videos/BurgerSimulator_Video.mp4",
-},
-{
-  id: 4,
-  accent: "#ffcb05",
-  engine: "Unity",
-  type: { fr: "Projet Professionnel", en: "Game Jam" },
-  title: "La Poste VR",
-  short: { fr: "Formation VR · Modules de formation sur les dangers", en: "Puzzle · Time mechanic" },
-  desc: {
-    fr: "Jeu de puzzle exploitant une mécanique de manipulation du temps. Développé seul en 72h. Système de rewind basé sur un historique d’états sérialisés, rendu post-process pour l’effet temporel.",
-    en: "Puzzle game built around a time manipulation mechanic. Solo project over 72h. Rewind system based on serialized state history, post-process rendering for the time effect."
-  },
-  tech: ["Unity", "C#", "VR", "Serious Game", "Professional"],
-  github: null,
-  demo: null,
-  download: null,
-  links: [{label: "Linkedin", url: "https://www.linkedin.com/feed/update/urn:li:activity:7453688002704240640/"}],
-  media: "videos/LaPoste_Video.mp4",
-},
-{
-  id: 5,
-  accent: "#ef4444",
-  engine: "Python / Unity",
-  type: { fr: "Outil / Pipeline", en: "Tool / Pipeline" },
-  title: "AssetPipe",
-  short: { fr: "Pipeline d’assets automatisé", en: "Automated asset pipeline" },
-  desc: {
-    fr: "Outil Python de génération et validation d’assets pour Unity. Automatise le nommage, l’import, la génération de meta-files et les rapports d’erreur. Réduction du temps de setup projet de 60%.",
-    en: "Python tool for asset generation and validation for Unity. Automates naming, import, meta-file generation and error reporting. Reduced project setup time by 60%."
-  },
-  tech: ["Python", "Unity", "CLI", "JSON", "Automation"],
-  github: null,
-  demo: null,
-  download: null,
-  links: [],
-  media: null,
-}];
+//#endregion
 
 
-// ─── COMPONENTS ──────────────────────────────────────────────────────────────
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  const setTweak = React.useCallback((key, val) => {
+    setValues((prev) => ({ ...prev, [key]: val }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*');
+  }, []);
+  return [values, setTweak];
+}
 
-function Nav({ lang, setLang, c }) {
-  const [scrolled, setScrolled] = useState(false);
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight  = Math.max(PAD, window.innerWidth  - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight,  Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right  = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
   }, []);
 
-  return (
-    <nav style={{ borderBottomColor: scrolled ? 'rgba(0,229,255,0.2)' : '' }}>
-      <a className="nav-logo" href="#hero">{'>'} MORGAN.DEV</a>
-      <ul className="nav-links">
-        {c.nav.map((label, i) =>
-        <li key={i}><a href={c.navAnchors[i]}>{label}</a></li>
-        )}
-      </ul>
-      <div className="lang-toggle">
-        <button className={`lang-btn ${lang === 'fr' ? 'active' : ''}`} onClick={() => setLang('fr')}>FR</button>
-        <button className={`lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => setLang('en')}>EN</button>
-      </div>
-    </nav>);
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', clampToViewport);
+      return () => window.removeEventListener('resize', clampToViewport);
+    }
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
 
-}
-
-function Hero({ c, tweaks }) {
-  return (
-    <section id="hero">
-      <div className="hero-grid"></div>
-      <div className="hero-glow"></div>
-      <div className="hero-content">
-        <div className="hero-tag">{c.heroTag}</div>
-        <h1 className="hero-name">
-          <span className="accent">Mo</span>rgan
-        </h1>
-        <p className="hero-title">{tweaks.heroSubtitle || c.heroSub}</p>
-        <div className="hero-ctas">
-          <a className="btn-primary" href="#projects">{c.heroCta1}</a>
-          <a className="btn-ghost" href="#contact">{c.heroCta2}</a>
-        </div>
-        <div className="hero-stats">
-          {c.stats.map((s, i) =>
-          <div key={i}>
-              <div className="hero-stat-num">{s.num}</div>
-              <div className="hero-stat-label">{s.label}</div>
-            </div>
-          )}
-        </div>
-      </div>
-    </section>);
-
-}
-
-function About({ c }) {
-  return (
-    <section id="about">
-      <div className="section-label">{c.aboutLabel}</div>
-      <h2 className="section-title">{c.aboutTitle}</h2>
-      <div className="about-grid">
-        <div className="about-text">
-          <p>{c.aboutP1}</p>
-          <p className="highlight">{c.aboutP2}</p>
-          <p>{c.aboutP3}</p>
-        </div>
-        <div className="about-side">
-          <div className="info-block">
-            {c.infoRows.map((row, i) =>
-            <div className="info-row" key={i}>
-                <div className="info-key">{row.key}</div>
-                <div className="info-val">
-                  {row.val && <span>{row.val}</span>}
-                  {row.tags.map((t, j) => <span className="tag" key={j}>{t}</span>)}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </section>);
-
-}
-
-function SkillBar({ level }) {
-  return (
-    <div className="skill-bar-wrap">
-      <div className="skill-bar-fill" style={{ width: `${level}%` }}></div>
-    </div>);
-
-}
-
-function Skills({ c, tweaks }) {
-  if (!tweaks.showSkills) return null;
-  return (
-    <section id="skills">
-      <div className="section-label">{c.skillsLabel}</div>
-      <h2 className="section-title">{c.skillsTitle}</h2>
-      <div className="skills-grid">
-        {c.skillGroups.map((group, gi) =>
-        <div className="skill-group" key={gi}>
-            <div className="skill-group-title">{group.title}</div>
-            {group.skills.map((skill, si) =>
-          <div className="skill-item" key={si}>
-                <span className="skill-name">{skill.name}</span>
-                <SkillBar level={skill.level} />
-              </div>
-          )}
-          </div>
-        )}
-      </div>
-    </section>);
-
-}
-
-function Timeline({ c, tweaks }) {
-  if (!tweaks.showTimeline) return null;
-  return (
-    <section id="timeline">
-      <div className="section-label">{c.tlLabel}</div>
-      <h2 className="section-title">{c.tlTitle}</h2>
-      <div className="timeline">
-        {c.timeline.map((item, i) =>
-        <div className={`timeline-item ${item.active ? 'active' : ''}`} key={i}>
-            <div className="tl-date">{item.date}</div>
-            <div className="tl-title">{item.title}</div>
-            <div className="tl-sub">{item.sub.split('\n').map((line, i) => (
-              <div key={i} className="tl-sub-item">
-                <span className="tl-sub-accent">—</span>
-                <span>{line}</span>
-              </div>
-            ))}</div>
-          </div>
-        )}
-      </div>
-    </section>);
-
-}
-
-function Lightbox({ src, title, onClose }) {
-  useEffect(() => {
-    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode')   setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
   }, []);
 
-  const isVideo = /\.(mp4|webm|ogg)$/i.test(src);
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
 
-  return (
-    <div className="lightbox" onClick={onClose}>
-      <div className="lightbox-inner" onClick={(e) => e.stopPropagation()}>
-        {isVideo
-          ? <video src={src} autoPlay controls loop playsInline></video>
-          : <img src={src} alt={title} />
-        }
-      </div>
-    </div>);
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight  = window.innerWidth  - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = { x: startRight - (ev.clientX - sx), y: startBottom - (ev.clientY - sy) };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
 
-}
-
-function ProjectCard({ project, lang, c }) {
-  const [open, setOpen] = useState(false);
-  const [lightbox, setLightbox] = useState(false);
-
-  const isVideo = project.media && /\.(mp4|webm|ogg)$/i.test(project.media);
-
-  return (
-    <div
-      className={`project-card ${open ? 'open' : ''}`}
-      style={{ '--card-accent': project.accent }}>
-
-      {lightbox && <Lightbox src={project.media} title={project.title} onClose={() => setLightbox(false)} />}
-
-      <div className="project-header" onClick={() => setOpen(!open)}>
-        <div>
-          <div className="project-meta">
-            <span className="project-num">#{String(project.id).padStart(2, '0')}</span>
-            <span className="project-engine-tag">{project.engine}</span>
-            <span className="project-type-tag">{project.type[lang]}</span>
-          </div>
-          <div className="project-title-row">
-            <span className="project-name">{project.title}</span>
-            <span className="project-short">{project.short[lang]}</span>
-          </div>
-        </div>
-        <div className="project-toggle">
-          <div className="toggle-icon">+</div>
-        </div>
-      </div>
-
-      <div className="project-body">
-        <div className="project-body-inner">
-          <div>
-            <p className="project-desc">{project.desc[lang]}</p>
-            <div className="project-tech-list">
-              {project.tech.map((t, i) =>
-              <span className="tag project-tech-tag" key={i}>
-                  {t}
-                </span>
-              )}
-            </div>
-            <div className="project-links">
-              {project.github && <a className="link-btn" href={project.github} target="_blank" rel="noreferrer">⌥ {c.links.github}</a>}
-              {project.demo && <a className="link-btn" href={project.demo} target="_blank" rel="noreferrer">▶ {c.links.demo}</a>}
-              {project.download && <a className="link-btn" href={project.download}>↓ {c.links.download}</a>}
-              {project.links && project.links.map((l, i) =>
-                <a className="link-btn" href={l.url} key={i} target="_blank" rel="noreferrer">↗ {l.label}</a>
-              )}
-            </div>
-          </div>
-          <div
-            className={`project-media ${project.media ? 'project-media--zoomable' : ''}`}
-            onClick={project.media ? () => setLightbox(true) : undefined}>
-            {project.media
-              ? isVideo
-                ? <video src={project.media} autoPlay muted loop playsInline></video>
-                : <img src={project.media} alt={project.title} />
-              : <div className="media-placeholder">
-                  <div className="media-placeholder-icon">◻</div>
-                  <div className="media-placeholder-text">SCREENSHOT / VIDEO</div>
-                </div>
-            }
-          </div>
-        </div>
-      </div>
-    </div>);
-
-}
-
-function Projects({ c, lang, tweaks }) {
-  return (
-    <div id="projects">
-      <div>
-        <div className="section-label">{c.projectsLabel}</div>
-        <h2 className="section-title">{c.projectsTitle}</h2>
-      </div>
-      <div className="projects-list">
-        {projects.map((p) =>
-        <ProjectCard key={p.id} project={p} lang={lang} c={c} accentColor={tweaks.accentColor} />
-        )}
-      </div>
-    </div>);
-
-}
-
-function Contact({ c }) {
-  return (
-    <section id="contact">
-      <div className="section-label">{c.contactLabel}</div>
-      <h2 className="section-title">{c.contactTitle}</h2>
-      <div className="contact-grid">
-        <div>
-          <p className="contact-lead">{c.contactLead}</p>
-          <div className="contact-links">
-            <a className="contact-link" href="mailto:morgan.fourquet@outlook.fr">
-              <div>
-                <div className="contact-link-label">Email</div>
-                <div className="contact-link-value">morgan.fourquet@outlook.fr</div>
-              </div>
-              <span className="contact-link-arrow">→</span>
-            </a>
-            <a className="contact-link" href="https://www.linkedin.com/in/morgan-fourquet-57148b26a/" target="_blank">
-              <div>
-                <div className="contact-link-label">LinkedIn</div>
-                <div className="contact-link-value">linkedin.com/in/morgan</div>
-              </div>
-              <span className="contact-link-arrow">→</span>
-            </a>
-            <a className="contact-link" href="https://github.com/Nagro0m" target="_blank">
-              <div>
-                <div className="contact-link-label">GitHub</div>
-                <div className="contact-link-value">github.com/morgan</div>
-              </div>
-              <span className="contact-link-arrow">→</span>
-            </a>
-          </div>
-        </div>
-        <div>
-          <div className="cv-box">
-            <div className="cv-box-label">{c.cvTitle}</div>
-            <div className="cv-box-title">Morgan — Game Developer</div>
-            <p className="cv-box-text">{c.cvText}</p>
-            <a className="btn-primary" href="#">↓ {c.cvBtn}</a>
-          </div>
-        </div>
-      </div>
-    </section>);
-
-}
-
-// ─── TWEAKS PANEL ────────────────────────────────────────────────────────────
-
-function MyTweaksPanel({ tweaks, setTweak }) {
-  return (
-    <TweaksPanel>
-      <TweakSection label="Visuals">
-        <TweakColor label="Accent color" value={tweaks.accentColor} onChange={(v) => setTweak('accentColor', v)} />
-      </TweakSection>
-      <TweakSection label="Sections">
-        <TweakToggle label="Show Skills section" value={tweaks.showSkills} onChange={(v) => setTweak('showSkills', v)} />
-        <TweakToggle label="Show Timeline section" value={tweaks.showTimeline} onChange={(v) => setTweak('showTimeline', v)} />
-      </TweakSection>
-      <TweakSection label="Hero">
-        <TweakText label="Subtitle" value={tweaks.heroSubtitle} onChange={(v) => setTweak('heroSubtitle', v)} />
-      </TweakSection>
-    </TweaksPanel>);
-
-}
-
-// ─── APP ─────────────────────────────────────────────────────────────────────
-
-function App() {
-  const [lang, setLang] = useState('fr');
-  const [tweaks, setTweaks] = useTweaks(TWEAK_DEFAULTS);
-  const c = content[lang];
-
-  const setTweak = (key, val) => setTweaks((prev) => ({ ...prev, [key]: val }));
-
-  // Apply accent color CSS variable
-  useEffect(() => {
-    document.documentElement.style.setProperty('--accent', tweaks.accentColor);
-    document.documentElement.style.setProperty('--accent-dim', tweaks.accentColor + '1f');
-    document.documentElement.style.setProperty('--accent-glow', tweaks.accentColor + '59');
-  }, [tweaks.accentColor]);
-
+  if (!open) return null;
   return (
     <>
-      <Nav lang={lang} setLang={setLang} c={c} />
-      <Hero c={c} tweaks={tweaks} />
-      <About c={c} />
-      <Skills c={c} tweaks={tweaks} />
-      <Timeline c={c} tweaks={tweaks} />
-      <Projects c={c} lang={lang} tweaks={tweaks} />
-      <Contact c={c} />
-      <footer>
-        <span className="footer-text">{c.footerText}</span>
-        <span className="footer-text">
-          Unreal Engine · Unity · C++ · C# · Python
-        </span>
-      </footer>
-      <MyTweaksPanel tweaks={tweaks} setTweak={setTweak} />
-    </>);
-
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks" onMouseDown={(e) => e.stopPropagation()} onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">{children}</div>
+      </div>
+    </>
+  );
 }
+
+function TweakSection({ label, children }) {
+  return <><div className="twk-sect">{label}</div>{children}</>;
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value} onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  const segAt = (clientX) => {
+    const r = trackRef.current.getBoundingClientRect();
+    const i = Math.floor(((clientX - r.left - 2) / (r.width - 4)) * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => { if (!trackRef.current) return; const v = segAt(ev.clientX); if (v !== valueRef.current) onChange(v); };
+    const up   = () => { setDragging(false); window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`, width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>{o.label}</button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => {
+          const v = typeof o === 'object' ? o.value : o;
+          const l = typeof o === 'object' ? o.label : o;
+          return <option key={v} value={v}>{l}</option>;
+        })}
+      </select>
+    </TweakRow>
+  );
+}
+
+function TweakText({ label, value, placeholder, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <input className="twk-field" type="text" value={value} placeholder={placeholder}
+             onChange={(e) => onChange(e.target.value)} />
+    </TweakRow>
+  );
+}
+
+function TweakNumber({ label, value, min, max, step = 1, unit = '', onChange }) {
+  const clamp = (n) => { if (min != null && n < min) return min; if (max != null && n > max) return max; return n; };
+  const startRef = React.useRef({ x: 0, val: 0 });
+  const onScrubStart = (e) => {
+    e.preventDefault();
+    startRef.current = { x: e.clientX, val: value };
+    const decimals = (String(step).split('.')[1] || '').length;
+    const move = (ev) => { const dx = ev.clientX - startRef.current.x; onChange(clamp(Number((Math.round((startRef.current.val + dx * step) / step) * step).toFixed(decimals)))); };
+    const up   = () => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return (
+    <div className="twk-num">
+      <span className="twk-num-lbl" onPointerDown={onScrubStart}>{label}</span>
+      <input type="number" value={value} min={min} max={max} step={step}
+             onChange={(e) => onChange(clamp(Number(e.target.value)))} />
+      {unit && <span className="twk-num-unit">{unit}</span>}
+    </div>
+  );
+}
+
+function TweakColor({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <input type="color" className="twk-swatch" value={value} onChange={(e) => onChange(e.target.value)} />
+    </div>
+  );
+}
+
+function TweakButton({ label, onClick, secondary = false }) {
+  return (
+    <button type="button" className={secondary ? 'twk-btn secondary' : 'twk-btn'} onClick={onClick}>{label}</button>
+  );
+}
+
+Object.assign(window, {
+  useTweaks, TweaksPanel, TweakSection, TweakRow,
+  TweakSlider, TweakToggle, TweakRadio, TweakSelect,
+  TweakText, TweakNumber, TweakColor, TweakButton,
+});
 
 ReactDOM.createRoot(document.getElementById('root')).render(<App />);
 </script>
+
 </body>
 </html>
