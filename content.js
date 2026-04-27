@@ -71,7 +71,7 @@ const content = {
       { date: "2026", title: "3ème année (à venir)", active: true, sub: "Développement d'un jeu en conditions proches d'un studio (travail en équipe équipe avec différents métiers : programmeurs, game designers, level designers, graphistes)\nGestion de projet et organisation de production à long terme\nSpécialisation technique (GPE / 3C) et développement de projets personnels\nPossibilité d'alternance et de stages en entreprise" }
     ],
     projectsLabel: "Projets",
-    projectsTitle: "Ce que j'ai construit",
+    projectsTitle: "Ce que j'ai réalisé",
     viewMore: "Voir détails",
     close: "Fermer",
     techLabel: "Technologies",
@@ -183,7 +183,7 @@ const projects = [
   },
   {
     id: 2,
-    accent: "#a855f7",
+    accent: "#ff9900",
     engine: "Unreal Engine 5.4",
     type: { fr: "Projet Ecole", en: "School Project" },
     title: "Bamphy",
@@ -231,7 +231,7 @@ const projects = [
   },
   {
     id: 5,
-    accent: "#ef4444",
+    accent: "#900000",
     engine: "Unreal Engine",
     type: { fr: "Global Game Jam 2026", en: "Global Game Jam 2026" },
     title: "Masked",
@@ -242,11 +242,11 @@ const projects = [
     },
     tech: ["Unreal Engine", "C++", "Blueprint", "PCG"],
     github: null, demo: null, download: null, links: [{label:"Download", url:"https://mega.nz/file/irZEUJxK#KHImLJBq1bk4aWnC-DZcUtnPpyv7dO32oX5FBPmpdpk"}],
-    media: null
+    media: "videos/Masked_Video.mp4"
   },
   {
     id: 6,
-    accent: "#ef4444",
+    accent: "#4796cf",
     engine: "Unreal Engine",
     type: { fr: "Projet Ecole", en: "School Project" },
     title: "Subway Surfer Like",
@@ -260,8 +260,8 @@ const projects = [
     media: null
   },
   {
-    id: 6,
-    accent: "#ef4444",
+    id: 7,
+    accent: "#903b7a",
     engine: "Unreal Engine",
     type: { fr: "Projet Ecole", en: "School Project" },
     title: "Rayman M Remake",
