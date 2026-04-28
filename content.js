@@ -176,7 +176,7 @@ const projects = [
       fr: "Jeu multijoueur local en vue de dessus développé en C++ avec un moteur de jeu custom inspiré d'Unreal Engine. L'objectif était de créer un premier jeu en une semaine avec les contraintes du moteur.",
       en: "A top-down local multiplayer game developed in C++ using a custom game engine inspired by Unreal Engine. The goal was to create a prototype game in one week within the engine's constraints."
     },
-    tech: ["SFML", "C++", "Local Multiplayer", "PCG", "Git"],
+    tech: ["SFML", "C++", "Local Multiplayer", "3C", "GPE", "PCG", "Git"],
     github: "https://github.com/Nagro0m/TankWar-V2/tree/main#readme",
     demo: null, download: "games/TankWar.zip", links: [],
     media: "videos/TankWar_Video.mp4"
@@ -192,7 +192,7 @@ const projects = [
       fr: "Jeu d'action-aventure orienté réflexion basé sur des énigmes interconnectées dans un environnement inspiré d'Angkor Vat. J'ai développé les systèmes de gameplay (GPE : portes, leviers, interactions) et surtout assuré la gestion de l'équipe de développement ainsi que la coordination des trois pôles : 3C, GPE et UI, afin de garantir un résultat cohérente.",
       en: "A puzzle-based action-adventure game featuring interconnected puzzles set in an environment inspired by Angkor Wat. I developed the gameplay systems (GPE: doors, levers, interactions) and, most importantly, managed the development team and coordinated the three departments—3C, GPE, and UI—to ensure a cohesive final product."
     },
-    tech: ["Unreal Engine 5", "C++", "Blueprint", "Lead", "P4V"],
+    tech: ["Unreal Engine 5", "C++", "Blueprint", "GPE", "Lead", "P4V"],
     github: null, demo: null, 
     download: null, links: [{label: "Download Latest Version", url:"https://mega.nz/file/GmwWxKQT#liAp8ehl5I8Duh5xmhFQQLrv3My0EKgrLC6pXS6riqg"}],
     media: "videos/Bamphy_Video.mp4"
@@ -210,7 +210,7 @@ const projects = [
     },
     tech: ["Unreal Engine 5", "C++", "3C", "GPE", "AI", "Game Design"],
     github: null, demo: null, download: null,
-    links: [{ label: "GDD Google Doc", url: "https://docs.google.com/document/d/1TIpyKvB4P1GrwShKLQHoLTUEsl5WuuL7S5Pmkqc5XSM/edit?usp=sharing" }],
+    links: [{ label: "GDD Google Doc", url: "https://docs.google.com/document/d/1TIpyKvB4P1GrwShKLQHoLTUEsl5WuuL7S5Pmkqc5XSM/edit?usp=sharing" },{ label: "Download", url: "https://mega.nz/file/GjJzlSCL#oaMUjigHu_v0AnjA6QIroQPz1VbslxG1VJ2gi88vqGY" }],
     media: "videos/BurgerSimulator_Video.mp4"
   },
   {
@@ -224,7 +224,7 @@ const projects = [
       fr: "Formation en réalité virtuelle réalisée pour le centre de tri de La Poste à Mauguio, dans le cadre d’un partenariat entre Objectif 3D et les formateurs du site. En tant qu’étudiant co-lead du projet, j’ai participé à la conception d’une expérience visant à sensibiliser les employés aux risques de leur environnement de travail, ainsi qu’aux dangers liés à l’alcool. J’ai pris en charge le module dédié à l’alcool, en concevant les mini-jeux et en encadrant les autres étudiants impliqués. J’ai également contribué, aux côtés d’un second lead, à la finalisation et au polish du projet afin d’assurer un rendu cohérent et abouti.",
       en: "A virtual reality training programme developed for La Poste’s sorting centre in Mauguio, as part of a partnership between Objectif 3D and the site’s trainers. As a student co-lead on the project, I helped design an experience aimed at raising employees’ awareness of the risks in their working environment, as well as the dangers associated with alcohol. I took charge of the module dedicated to alcohol, designing the mini-games and supervising the other students involved. I also contributed, alongside a second lead, to finalising and polishing the project to ensure a coherent and polished end result."
     },
-    tech: ["Unity", "C#", "VR", "Serious Game", "Professional", "Meta Quest"],
+    tech: ["Unity", "C#", "VR", "Serious Game", "Professional", "Meta Quest", "GPE", "Lead"],
     github: null, demo: null, download: null,
     links: [{ label: "Linkedin", url: "https://www.linkedin.com/feed/update/urn:li:activity:7453688002704240640/"}, {label: "Midi Libre", url: "https://www.midilibre.fr/2026/03/29/la-poste-innove-avec-une-formation-en-realite-virtuelle-13298351.php"}],
     media: "videos/LaPoste_Video.mp4"
@@ -240,7 +240,7 @@ const projects = [
       fr: "Roguelike développé en 2 jours lors d’une Game Jam. Le joueur progresse de salle en salle, affronte des ennemis (des masques) et tente de faire le meilleur score possible, sans possibilité de revenir en arrière. J’étais en charge de la génération aléatoire des salles ainsi que des événements déclenchés à chaque nouvelle salle.",
       en: "A roguelike game developed in two days during a Game Jam. The player progresses from room to room, battles enemies (masks) and tries to achieve the highest score possible, with no way to go back. I was responsible for the random generation of rooms and the events triggered in each new room."
     },
-    tech: ["Unreal Engine", "C++", "Blueprint", "PCG"],
+    tech: ["Unreal Engine", "C++", "Blueprint", "GPE", "PCG", "P4V"],
     github: null, demo: null, download: null, links: [{label:"Download", url:"https://mega.nz/file/irZEUJxK#KHImLJBq1bk4aWnC-DZcUtnPpyv7dO32oX5FBPmpdpk"}],
     media: "videos/Masked_Video.mp4"
   },
@@ -255,8 +255,9 @@ const projects = [
       fr: "Création d’un jeu inspiré de Subway Surfers pour explorer le genre de l’endless runner, avec un système de génération procédurale permettant de faire apparaître des obstacles de manière cohérente. Le projet incluait également une compatibilité Android. J’ai pris en charge les 3C (Character, Camera, Controls), en reproduisant une logique de déplacement fluide propre au genre, ainsi que certains effets visuels, comme la déformation des objets à distance pour accentuer la sensation de vitesse.",
       en: "Development of a game inspired by Subway Surfers to explore the endless runner genre, featuring a procedural generation system that generates obstacles in a consistent manner. The project also included Android compatibility. I was responsible for the 3Cs (Character, Camera, Controls), recreating the fluid movement typical of the genre, as well as certain visual effects, such as the distortion of objects in the distance to accentuate the sense of speed."
     },
-    tech: ["Unreal Engine", "C++", "Blueprint", "PCG"],
-    github: null, demo: null, download: null, links: [],
+    tech: ["Unreal Engine", "C++", "Blueprint", "3C", "P4V"],
+    github: null, demo: null, download: null, 
+    links: [{label : "Download", url : "https://mega.nz/file/iuAQmZqZ#3zNlhHWrI27tWeAwwyhrWhN0Q3XTH-j4Ruyw_YjTqxE"}],
     media: null
   },
   {
@@ -267,11 +268,12 @@ const projects = [
     title: "Rayman M Remake",
     short: { fr: "Jeu de course · Remake d'un niveau de Rayman M en multijoueur", en: "Racing game · Multiplayer remake of a level from Rayman M" },
     desc: {
-      fr: "",
-      en: ""
+      fr: "Recréation d’un niveau de Rayman M, avec pour objectif de reproduire fidèlement ses mécaniques tout en y ajoutant une dimension multijoueur (local et Steam) pour jouer en compétition. J’ai pris en charge l’ensemble des 3C, avec de nombreuses mécaniques à intégrer et équilibrer. J’ai également participé à la finalisation du projet, notamment sur l’harmonisation des assets, l’ajout d’effets visuels et l’amélioration de l’espace de jeu pour un rendu plus cohérent.",
+      en: "Recreation of a level from Rayman M, with the aim of faithfully reproducing its mechanics whilst adding a multiplayer dimension (local and Steam) for competitive play. I was responsible for all aspects of the 3Cs, involving the integration and balancing of numerous mechanics. I also contributed to the finalisation of the project, particularly in harmonising assets, adding visual effects and improving the game environment for a more cohesive look."
     },
-    tech: ["Unreal Engine", "C++", "Blueprint", "PCG"],
-    github: null, demo: null, download: null, links: [],
+    tech: ["Unreal Engine", "C++", "Blueprint", "3C", "Level Designer", "P4V"],
+    github: null, demo: null, download: null, 
+    links: [{label : "Download", url : ""}],
     media: null
   },
 ];
