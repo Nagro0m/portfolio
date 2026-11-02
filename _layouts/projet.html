@@ -1,69 +1,92 @@
 ---
 layout: default
 ---
-{%- assign projets = site.projets | sort: "ordre" -%}
+{%- comment -%}
+  Page projet. Le fichier anglais (_projets/nom.md) contient toutes les infos ;
+  le fichier français (_projets/fr/nom.md) ne contient que les textes traduits.
+  Tout champ absent en français est repris de l'anglais.
+{%- endcomment -%}
+{%- assign lang = page.lang | default: 'en' -%}
+{%- assign t = site.data.ui[lang] -%}
+{%- if lang == 'en' -%}
+  {%- assign base = page -%}
+{%- else -%}
+  {%- assign base = site.projets | where: "lang", "en" | where: "slug", page.slug | first -%}
+  {%- unless base -%}{%- assign base = page -%}{%- endunless -%}
+{%- endif -%}
+
+{%- assign x_accroche = page.accroche | default: base.accroche -%}
+{%- assign x_resume = page.resume | default: base.resume -%}
+{%- assign x_contrib = page.contributions | default: base.contributions -%}
+{%- assign x_role = page.role | default: base.role -%}
+{%- assign x_equipe = page.equipe | default: base.equipe -%}
+{%- assign x_duree = page.duree | default: base.duree -%}
+{%- assign x_moteur = page.moteur | default: base.moteur -%}
+{%- assign x_plateforme = page.plateforme | default: base.plateforme -%}
+{%- assign x_technos = page.technos | default: base.technos -%}
+{%- assign technique = content | strip_html | strip -%}
+
+{%- assign projets = site.projets | where: "lang", "en" | sort: "ordre" -%}
 {%- for pr in projets -%}
-  {%- if pr.url == page.url -%}
-    {%- assign i = forloop.index0 -%}
-  {%- endif -%}
+  {%- if pr.slug == base.slug -%}{%- assign i = forloop.index0 -%}{%- endif -%}
 {%- endfor -%}
 {%- assign i_prec = i | minus: 1 -%}
 {%- assign i_suiv = i | plus: 1 -%}
-{%- assign technique = content | strip_html | strip -%}
 
-<article class="projet wrap type--{{ page.type | slugify: "latin" }}">
-  <a class="retour" href="{{ '/#projets' | relative_url }}">← Tous les projets</a>
+<article class="projet wrap type--{{ base.categorie }}">
+  <a class="retour" href="{{ t.accueil | append: '#projets' | relative_url }}">{{ t.retour }}</a>
 
   <header class="projet__tete">
-    <p class="projet__type">{{ page.type }}{% if page.annee %} · {{ page.annee }}{% endif %}</p>
+    <p class="projet__type">{{ t.categories[base.categorie] }}{% if base.annee %} · {{ base.annee }}{% endif %}{% if base.en_cours %} · {{ t.en_cours }}{% endif %}</p>
     <h1>{{ page.title }}</h1>
-    <p class="projet__accroche">{{ page.accroche }}</p>
+    <p class="projet__accroche">{{ x_accroche }}</p>
   </header>
 
   <div class="projet__media">
-    {%- if page.youtube %}
-    <iframe src="https://www.youtube-nocookie.com/embed/{{ page.youtube }}" title="Vidéo de {{ page.title }}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
-    {%- elsif page.video %}
-    <video controls preload="none" playsinline {% if page.couverture %}poster="{{ page.couverture | relative_url }}"{% endif %}>
-      <source src="{{ page.video | relative_url }}" type="video/mp4">
+    {%- if base.youtube %}
+    <iframe src="https://www.youtube-nocookie.com/embed/{{ base.youtube }}" title="{{ t.video_de }} {{ page.title }}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
+    {%- elsif base.video %}
+    <video controls preload="none" playsinline {% if base.couverture %}poster="{{ base.couverture | relative_url }}"{% endif %}>
+      <source src="{{ base.video | relative_url }}" type="video/mp4">
     </video>
-    {%- elsif page.couverture %}
-    <img src="{{ page.couverture | relative_url }}" alt="Capture de {{ page.title }}">
+    {%- elsif base.couverture %}
+    <img src="{{ base.couverture | relative_url }}" alt="{{ t.capture_de }} {{ page.title }}">
     {%- endif %}
   </div>
 
   <div class="projet__corps">
     <div class="projet__principal">
-      {%- if page.resume %}
+      {%- if x_resume %}
       <section>
-        <h2>Le projet</h2>
-        <p>{{ page.resume }}</p>
+        <h2>{{ t.le_projet }}</h2>
+        <p>{{ x_resume }}</p>
       </section>
       {%- endif %}
 
-      {%- if page.contributions %}
+      {%- if x_contrib %}
       <section>
-        <h2>Ce que j'ai fait</h2>
+        <h2>{% if base.en_cours %}{{ t.ce_que_je_fais }}{% else %}{{ t.ce_que_jai_fait }}{% endif %}</h2>
         <ul class="contributions">
-          {%- for c in page.contributions %}
+          {%- for c in x_contrib %}
           <li>{{ c | markdownify | remove: '<p>' | remove: '</p>' | strip }}</li>
           {%- endfor %}
         </ul>
       </section>
       {%- endif %}
 
-      {%- if page.galerie %}
+      {%- if base.galerie %}
       <section>
-        <h2>Captures</h2>
+        <h2>{{ t.captures }}</h2>
         <div class="galerie">
-          {%- for img in page.galerie %}
+          {%- for img in base.galerie %}
           {%- assign src = img.image | default: img %}
-          {%- capture alt_defaut %}Capture de {{ page.title }} ({{ forloop.index }}){% endcapture %}
+          {%- if lang == 'fr' %}{% assign legende = img.legende_fr | default: img.legende %}{% else %}{% assign legende = img.legende %}{% endif %}
+          {%- capture alt_defaut %}{{ t.capture_de }} {{ page.title }} ({{ forloop.index }}){% endcapture %}
           <figure>
             <a href="{{ src | relative_url }}" target="_blank" rel="noopener">
-              <img src="{{ src | relative_url }}" alt="{{ img.legende | default: alt_defaut | escape }}" loading="lazy">
+              <img src="{{ src | relative_url }}" alt="{{ legende | default: alt_defaut | escape }}" loading="lazy">
             </a>
-            {%- if img.legende %}<figcaption>{{ img.legende }}</figcaption>{% endif %}
+            {%- if legende %}<figcaption>{{ legende }}</figcaption>{% endif %}
           </figure>
           {%- endfor %}
         </div>
@@ -72,7 +95,7 @@ layout: default
 
       {%- if technique != "" %}
       <section class="technique">
-        <h2>Sous le capot <span>partie technique</span></h2>
+        <h2>{{ t.sous_le_capot }} <span>{{ t.sous_le_capot_tag }}</span></h2>
         <div class="prose">
           {{ content }}
         </div>
@@ -80,38 +103,43 @@ layout: default
       {%- endif %}
     </div>
 
-    <aside class="fiche" aria-label="Fiche du projet">
+    <aside class="fiche" aria-label="{{ page.title }}">
       <dl>
-        {%- if page.role %}<div><dt>Mon rôle</dt><dd>{{ page.role }}</dd></div>{% endif %}
-        {%- if page.equipe %}<div><dt>Équipe</dt><dd>{{ page.equipe }}</dd></div>{% endif %}
-        {%- if page.duree %}<div><dt>Durée</dt><dd>{{ page.duree }}</dd></div>{% endif %}
-        {%- if page.moteur %}<div><dt>Moteur</dt><dd>{{ page.moteur }}</dd></div>{% endif %}
-        {%- if page.plateforme %}<div><dt>Plateforme</dt><dd>{{ page.plateforme }}</dd></div>{% endif %}
-        {%- if page.annee %}<div><dt>Année</dt><dd>{{ page.annee }}</dd></div>{% endif %}
+        {%- if x_role %}<div><dt>{{ t.role }}</dt><dd>{{ x_role }}</dd></div>{% endif %}
+        {%- if x_equipe %}<div><dt>{{ t.equipe }}</dt><dd>{{ x_equipe }}</dd></div>{% endif %}
+        {%- if x_duree %}<div><dt>{{ t.duree }}</dt><dd>{{ x_duree }}</dd></div>{% endif %}
+        {%- if x_moteur %}<div><dt>{{ t.moteur }}</dt><dd>{{ x_moteur }}</dd></div>{% endif %}
+        {%- if x_plateforme %}<div><dt>{{ t.plateforme }}</dt><dd>{{ x_plateforme }}</dd></div>{% endif %}
+        {%- if base.annee %}<div><dt>{{ t.annee }}</dt><dd>{{ base.annee }}</dd></div>{% endif %}
       </dl>
-      {%- if page.technos %}
-      <ul class="tags" aria-label="Technologies">
-        {%- for t in page.technos %}<li>{{ t }}</li>{% endfor %}
+      {%- if x_technos %}
+      <ul class="tags" aria-label="Tech">
+        {%- for tech in x_technos %}<li>{{ tech }}</li>{% endfor %}
       </ul>
       {%- endif %}
-      {%- if page.liens %}
+      {%- if base.liens %}
       <ul class="fiche__liens">
-        {%- for l in page.liens %}
-        <li><a href="{{ l.url | relative_url }}" target="_blank" rel="noopener">{{ l.nom }} <span aria-hidden="true">↗</span></a></li>
+        {%- for l in base.liens %}
+        {%- if lang == 'fr' %}{% assign nom_lien = l.nom_fr | default: l.nom %}{% else %}{% assign nom_lien = l.nom %}{% endif %}
+        <li><a href="{{ l.url | relative_url }}" target="_blank" rel="noopener">{{ nom_lien }} <span aria-hidden="true">↗</span></a></li>
         {%- endfor %}
       </ul>
       {%- endif %}
     </aside>
   </div>
 
-  <nav class="suite" aria-label="Autres projets">
+  <nav class="suite" aria-label="{{ t.projets }}">
     {%- if i_prec >= 0 %}
-    {%- assign pp = projets[i_prec] %}
-    <a class="suite__lien" href="{{ pp.url | relative_url }}"><span>Projet précédent</span>{{ pp.title }}</a>
+      {%- assign pp = projets[i_prec] %}
+      {%- assign pp_tr = "" %}
+      {%- if lang != 'en' %}{% assign pp_tr = site.projets | where: "lang", lang | where: "slug", pp.slug | first %}{% endif %}
+    <a class="suite__lien" href="{{ pp_tr.url | default: pp.url | relative_url }}"><span>{{ t.precedent }}</span>{{ pp_tr.title | default: pp.title }}</a>
     {%- else %}<span></span>{% endif %}
     {%- if i_suiv < projets.size %}
-    {%- assign ps = projets[i_suiv] %}
-    <a class="suite__lien suite__lien--droite" href="{{ ps.url | relative_url }}"><span>Projet suivant</span>{{ ps.title }}</a>
+      {%- assign ps = projets[i_suiv] %}
+      {%- assign ps_tr = "" %}
+      {%- if lang != 'en' %}{% assign ps_tr = site.projets | where: "lang", lang | where: "slug", ps.slug | first %}{% endif %}
+    <a class="suite__lien suite__lien--droite" href="{{ ps_tr.url | default: ps.url | relative_url }}"><span>{{ t.suivant }}</span>{{ ps_tr.title | default: ps.title }}</a>
     {%- endif %}
   </nav>
 </article>

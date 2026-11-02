@@ -1,10 +1,16 @@
 ---
 layout: default
-title: Page introuvable — Morgan Fourquet
+lang: en
+title: Page not found — Morgan Fourquet
 permalink: /404.html
 ---
+{%- assign en = site.data.ui.en -%}{%- assign fr = site.data.ui.fr -%}
 <section class="erreur wrap">
-  <h1>Page introuvable</h1>
-  <p>Cette page n'existe pas ou a été déplacée.</p>
-  <a class="bouton" href="{{ '/' | relative_url }}">Retour à l'accueil</a>
+  <h1>{{ en.introuvable_titre }}</h1>
+  <p>{{ en.introuvable_texte }}</p>
+  <p lang="fr">{{ fr.introuvable_texte }}</p>
+  <div class="actions">
+    <a class="bouton" href="{{ en.accueil | relative_url }}">{{ en.retour_accueil }}</a>
+    <a class="lien-simple" lang="fr" href="{{ fr.accueil | relative_url }}">{{ fr.retour_accueil }}</a>
+  </div>
 </section>

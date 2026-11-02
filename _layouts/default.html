@@ -1,21 +1,42 @@
+{%- comment -%} Langue de la page (anglais par défaut) {%- endcomment -%}
+{%- assign lang = page.lang | default: 'en' -%}
+{%- if lang == 'fr' -%}{%- assign autre = 'en' -%}{%- else -%}{%- assign autre = 'fr' -%}{%- endif -%}
+{%- assign t = site.data.ui[lang] -%}
 {%- assign p = site.data.profil -%}
-{%- if page.title and page.layout == 'projet' -%}
-  {%- capture titre_page -%}{{ page.title }} — {{ p.nom }}{%- endcapture -%}
-{%- elsif page.title -%}
-  {%- assign titre_page = page.title -%}
-{%- else -%}
-  {%- assign titre_page = site.title -%}
+{%- assign pl = p[lang] -%}
+
+{%- comment -%} Adresse de la même page dans l'autre langue {%- endcomment -%}
+{%- assign alt_url = site.data.ui[autre].accueil -%}
+{%- if page.collection == 'projets' -%}
+  {%- assign alt_doc = site.projets | where: "lang", autre | where: "slug", page.slug | first -%}
+  {%- if alt_doc -%}{%- assign alt_url = alt_doc.url -%}{%- endif -%}
+{%- elsif page.alt -%}
+  {%- assign alt_url = page.alt -%}
 {%- endif -%}
-{%- assign desc_page = page.accroche | default: site.description -%}
+{%- if lang == 'en' -%}
+  {%- assign url_en = page.url -%}{%- assign url_fr = alt_url -%}
+{%- else -%}
+  {%- assign url_fr = page.url -%}{%- assign url_en = alt_url -%}
+{%- endif -%}
+
+{%- if page.collection == 'projets' -%}
+  {%- capture titre_page -%}{{ page.title }} — {{ p.nom }}{%- endcapture -%}
+{%- else -%}
+  {%- assign titre_page = page.title | default: site.title -%}
+{%- endif -%}
+{%- assign desc_page = page.accroche | default: pl.description -%}
 {%- assign img_page = page.couverture | default: '/assets/img/apercu-site.jpg' -%}
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: 'fr' }}">
+<html lang="{{ lang }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ titre_page }}</title>
   <meta name="description" content="{{ desc_page | strip_html | escape }}">
   <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <link rel="alternate" hreflang="en" href="{{ url_en | absolute_url }}">
+  <link rel="alternate" hreflang="fr" href="{{ url_fr | absolute_url }}">
+  <link rel="alternate" hreflang="x-default" href="{{ url_en | absolute_url }}">
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{ titre_page | escape }}">
   <meta property="og:description" content="{{ desc_page | strip_html | escape }}">
@@ -29,21 +50,27 @@
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 </head>
 <body>
-  <a class="skip" href="#contenu">Aller au contenu</a>
+  <a class="skip" href="#contenu">{{ t.skip }}</a>
 
   <header class="topbar">
     <div class="wrap topbar__inner">
-      <a class="topbar__nom" href="{{ '/' | relative_url }}">{{ p.nom }}</a>
-      <nav aria-label="Navigation principale">
-        <ul class="topbar__nav">
-          <li><a href="{{ '/#projets' | relative_url }}">Projets</a></li>
-          <li><a href="{{ '/#parcours' | relative_url }}">Parcours</a></li>
-          {%- if p.cv != "" and p.cv %}
-          <li><a href="{{ p.cv | relative_url }}" target="_blank" rel="noopener">CV</a></li>
-          {%- endif %}
-          <li><a href="{{ '/#contact' | relative_url }}">Contact</a></li>
+      <a class="topbar__nom" href="{{ t.accueil | relative_url }}">{{ p.nom }}</a>
+      <div class="topbar__droite">
+        <nav aria-label="Navigation">
+          <ul class="topbar__nav">
+            <li><a href="{{ t.accueil | append: '#projets' | relative_url }}">{{ t.nav_projets }}</a></li>
+            <li><a href="{{ t.accueil | append: '#parcours' | relative_url }}">{{ t.nav_apropos }}</a></li>
+            {%- if pl.cv != "" and pl.cv %}
+            <li><a href="{{ pl.cv | relative_url }}" target="_blank" rel="noopener">{{ t.nav_cv }}</a></li>
+            {%- endif %}
+            <li><a href="{{ t.accueil | append: '#contact' | relative_url }}">{{ t.nav_contact }}</a></li>
+          </ul>
+        </nav>
+        <ul class="langues" aria-label="Language / Langue">
+          <li><a href="{{ url_en | relative_url }}" hreflang="en" lang="en" title="English"{% if lang == 'en' %} aria-current="page"{% endif %}>EN</a></li>
+          <li><a href="{{ url_fr | relative_url }}" hreflang="fr" lang="fr" title="Français"{% if lang == 'fr' %} aria-current="page"{% endif %}>FR</a></li>
         </ul>
-      </nav>
+      </div>
     </div>
   </header>
 
@@ -53,14 +80,14 @@
 
   <footer class="footer" id="contact">
     <div class="wrap">
-      <p class="footer__kicker">Contact</p>
-      <p class="footer__phrase">Un stage, une alternance, une question sur un projet&nbsp;?</p>
+      <p class="footer__kicker">{{ t.contact_titre }}</p>
+      <p class="footer__phrase">{{ t.contact_phrase }}</p>
       <a class="footer__email" href="mailto:{{ p.email }}">{{ p.email }}</a>
       <ul class="footer__liens">
         <li><a href="{{ p.linkedin }}" target="_blank" rel="noopener">LinkedIn</a></li>
         <li><a href="{{ p.github }}" target="_blank" rel="noopener">GitHub</a></li>
-        {%- if p.cv != "" and p.cv %}
-        <li><a href="{{ p.cv | relative_url }}" target="_blank" rel="noopener">CV (PDF)</a></li>
+        {%- if pl.cv != "" and pl.cv %}
+        <li><a href="{{ pl.cv | relative_url }}" target="_blank" rel="noopener">{{ t.nav_cv }} (PDF)</a></li>
         {%- endif %}
       </ul>
       <p class="footer__bas">© {{ site.time | date: '%Y' }} {{ p.nom }} · Montpellier</p>

@@ -1,26 +1,42 @@
 # Réglages du site (rarement à modifier).
-# Tes infos perso (bio, compétences, parcours) sont dans _data/profil.yml
-# Tes projets sont dans le dossier _projets/
+# Textes de la page d'accueil (EN + FR) : _data/profil.yml
+# Petits textes de l'interface (boutons, titres) : _data/ui.yml
+# Projets : _projets/ (anglais) et _projets/fr/ (français)
 
-title: Morgan Fourquet — Développeur gameplay
-description: Développeur jeu vidéo en formation à Montpellier, spécialisé gameplay (GPE) et 3C sur Unreal Engine (C++) et Unity (C#).
+title: Morgan Fourquet — Gameplay Programmer
 # Site publié sur https://nagro0m.github.io/portfolio/
 # Le jour où tu passes sur morganfourquet.com :
 #   url: "https://morganfourquet.com"  et  baseurl: ""  + recrée le fichier CNAME
 url: "https://nagro0m.github.io"
 baseurl: "/portfolio"
-lang: fr
 
 collections:
   projets:
     output: true
-    permalink: /projets/:name/
 
 defaults:
+  # Version anglaise (par défaut) : _projets/nom.md → /projects/nom/
   - scope:
+      path: "_projets"
       type: projets
     values:
       layout: projet
+      lang: en
+      permalink: /projects/:name/
+  # Version française : _projets/fr/nom.md → /fr/projets/nom/
+  - scope:
+      path: "_projets/fr"
+      type: projets
+    values:
+      layout: projet
+      lang: fr
+      permalink: /fr/projets/:name/
+  # Pages normales : anglais par défaut
+  - scope:
+      path: ""
+      type: pages
+    values:
+      lang: en
 
 markdown: kramdown
 highlighter: rouge

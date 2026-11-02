@@ -3,26 +3,37 @@
 Site statique fait avec **Jekyll**, publié automatiquement par **GitHub Pages**.
 Aucun outil à installer : tu modifies des fichiers texte, tu push, c'est en ligne 1 à 2 minutes après.
 
+## Deux langues
+
+Le site est en **anglais par défaut** (`/portfolio/`) et en **français** sur `/portfolio/fr/`.
+Le bouton EN / FR en haut à droite bascule sur la même page dans l'autre langue.
+
 ## Où modifier quoi
 
 | Je veux…                                   | Fichier                                  |
 |--------------------------------------------|------------------------------------------|
-| Changer mon intro, compétences, parcours   | `_data/profil.yml`                       |
-| Ajouter mon CV                             | dépose le PDF dans `assets/`, puis `cv:` dans `_data/profil.yml` |
-| Modifier un projet                         | `_projets/nom-du-projet.md`              |
-| Ajouter un projet                          | copie `_projets/modele.md` (mode d'emploi dedans) |
-| Changer l'ordre des projets                | la ligne `ordre:` de chaque projet       |
+| Changer mon intro, compétences, parcours   | `_data/profil.yml` (bloc `en:` et bloc `fr:`) |
+| Ajouter mon CV                             | dépose le PDF dans `assets/`, puis `cv:` dans chaque bloc de `_data/profil.yml` |
+| Modifier un projet (anglais + médias)      | `_projets/nom-du-projet.md`              |
+| Modifier la version française d'un projet  | `_projets/fr/nom-du-projet.md`           |
+| Ajouter un projet                          | copie les deux modèles (voir ci-dessous) |
+| Changer l'ordre des projets                | la ligne `ordre:` du fichier anglais     |
+| Changer un bouton, un titre de section     | `_data/ui.yml`                           |
 | Changer les couleurs / polices             | haut de `assets/css/style.css`           |
 
 ## Ajouter un projet
 
-1. Copie `_projets/modele.md` → `_projets/mon-jeu.md` et supprime la ligne `published: false`.
-2. Mets les images dans `assets/img/projets/mon-jeu/` et la vidéo dans `assets/video/`.
-3. Remplis le haut du fichier (titre, rôle, équipe…). C'est ce que lit un RH.
-4. Sous les `---`, écris en Markdown la partie technique (texte, images, blocs de code).
-   Elle s'affiche dans « Sous le capot ». Laisse vide pour la masquer.
+1. Copie `_projets/modele.md` → `_projets/mon-jeu.md` (version anglaise + médias, liens, ordre, catégorie).
+2. Copie `_projets/fr/modele.md` → `_projets/fr/mon-jeu.md` (**même nom**) : seulement les textes en français.
+3. Dans les deux fichiers, supprime la ligne `published: false`.
+4. Mets les images dans `assets/img/projets/mon-jeu/` et la vidéo dans `assets/video/`.
+5. Sous les `---`, écris en Markdown la partie technique (texte, images, blocs de code).
+   Elle s'affiche dans « Under the hood » / « Sous le capot ». Laisse vide pour la masquer.
 
-Piège YAML : si une ligne de `contributions` contient ` : `, mets-la entre guillemets.
+Tout champ absent du fichier français reprend la valeur anglaise.
+Pour un lien ou une légende d'image, ajoute `nom_fr:` / `legende_fr:` à côté de `nom:` / `legende:`.
+
+Piège YAML : si une ligne de `contributions` contient `: `, mets-la entre guillemets.
 
 ## Médias
 
@@ -37,10 +48,9 @@ ffmpeg -ss 10 -t 5 -i video.mp4 -an -vf scale=640:-2 -c:v libx264 -crf 30 -movfl
 
 ## Publier sur GitHub Pages
 
-1. Mets le contenu de ce dossier à la racine du dépôt (ex : `Nagro0m/portfolio`).
-2. Garde le dossier `games/` de l'ancien dépôt (le zip de Tank War y est lié).
-3. GitHub → Settings → Pages → Source : *Deploy from a branch*, branche `main`, dossier `/ (root)`.
-4. Le fichier `CNAME` garde le domaine `morganfourquet.com`.
+1. Commit et push : GitHub reconstruit le site en 1 à 2 minutes sur https://nagro0m.github.io/portfolio/
+2. Garde le dossier `games/` (le zip de Tank War y est lié).
+3. Pour passer sur morganfourquet.com plus tard : voir le commentaire en haut de `_config.yml`.
 
 ## Prévisualiser sur ton PC (optionnel)
 

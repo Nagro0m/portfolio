@@ -1,30 +1,32 @@
 ---
+# ── Version anglaise + infos communes (médias, liens) ──
+# La traduction française est dans _projets/fr/la-poste-vr.md
 title: La Poste VR
-accroche: Formation en réalité virtuelle sur les risques au travail, pour le centre de tri La Poste de Mauguio.
+accroche: A VR safety training app for La Poste's sorting center in Mauguio, built with my school.
 ordre: 1
-type: Projet professionnel
+categorie: pro            # pro / ecole / perso / jam
 annee: 2026
 moteur: Unity
 plateforme: Meta Quest (VR)
-role: Co-lead étudiant · Programmeur gameplay
-duree: 1 mois
-# equipe: "X étudiants"
+role: Student co-lead, gameplay programmer
+duree: 1 month
+# equipe: "X students"
 
 couverture: /assets/img/projets/la-poste-vr/couverture.webp
 apercu: /assets/video/la-poste-vr-apercu.mp4
 video: /assets/video/la-poste-vr.mp4
 
 resume: >-
-  Une formation en réalité virtuelle commandée par le centre de tri La Poste de Mauguio,
-  dans le cadre d'un partenariat entre Objectif 3D et les formateurs du site.
-  Elle sensibilise les employés aux risques de leur environnement de travail
-  et aux dangers liés à l'alcool.
+  The trainers at La Poste's Mauguio sorting center wanted a new way to teach workplace
+  safety. Together with Objectif 3D, we built a VR experience where employees learn to
+  spot the risks around their workstation, with a separate module about the dangers of
+  alcohol at work.
 
 contributions:
-  - Co-lead étudiant du projet, en lien direct avec les formateurs de La Poste
-  - "Responsable du module « alcool » : conception et programmation des mini-jeux"
-  - Encadrement des étudiants qui travaillaient sur ce module
-  - Finalisation et polish de l'ensemble avec le second lead, pour un rendu cohérent
+  - Co-led the student team and worked directly with La Poste's trainers
+  - "Owned the alcohol module: designed and programmed its mini-games"
+  - Guided the students who worked on that module
+  - Polished and wrapped up the whole project with the other lead
 
 technos: [Unity, C#, VR, Meta Quest, Serious game]
 
@@ -34,8 +36,10 @@ galerie:
   - image: /assets/img/projets/la-poste-vr/capture-3.webp
 
 liens:
-  - nom: Article Midi Libre
+  - nom: Midi Libre article (French)
+    nom_fr: Article Midi Libre
     url: https://www.midilibre.fr/2026/03/29/la-poste-innove-avec-une-formation-en-realite-virtuelle-13298351.php
-  - nom: Publication LinkedIn
+  - nom: LinkedIn post
+    nom_fr: Post LinkedIn
     url: https://www.linkedin.com/feed/update/urn:li:activity:7453688002704240640/
 ---

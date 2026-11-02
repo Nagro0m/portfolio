@@ -1,27 +1,29 @@
 ---
+# ── Version anglaise + infos communes (médias, liens) ──
+# La traduction française est dans _projets/fr/masked.md
 title: Masked
-accroche: Roguelike de salle en salle, fait en 48 h pendant la Global Game Jam 2026 (thème « Masque »).
-ordre: 6
-type: Game jam
+accroche: A room-by-room roguelike made in 48 hours at Global Game Jam 2026, on the theme "Mask".
+ordre: 7
+categorie: jam
 annee: 2026
 moteur: Unreal Engine
-role: Programmeur gameplay — génération des salles
-duree: 48 heures
-# equipe: "X personnes"
+role: Gameplay programmer, room generation
+duree: 48 hours
+# equipe: "X people"
 
 couverture: /assets/img/projets/masked/couverture.webp
 apercu: /assets/video/masked-apercu.mp4
 video: /assets/video/masked.mp4
 
 resume: >-
-  Le joueur avance de salle en salle, affronte des masques et tente de faire le meilleur
-  score possible, sans pouvoir revenir en arrière.
+  You move from room to room, fight masks and try to get the highest score you can.
+  Once you leave a room, there's no going back.
 
 contributions:
-  - Génération aléatoire des salles
-  - Événements déclenchés à l'entrée de chaque nouvelle salle
+  - Random generation of the rooms
+  - The events that trigger when you walk into a new room
 
-technos: [Unreal Engine, C++, Blueprint, Génération procédurale, Perforce]
+technos: [Unreal Engine, C++, Blueprint, Procedural generation, Perforce]
 
 galerie:
   - image: /assets/img/projets/masked/capture-1.webp
@@ -29,6 +31,7 @@ galerie:
   - image: /assets/img/projets/masked/capture-3.webp
 
 liens:
-  - nom: Télécharger le jeu
+  - nom: Download the game
+    nom_fr: Télécharger le jeu
     url: https://mega.nz/file/irZEUJxK#KHImLJBq1bk4aWnC-DZcUtnPpyv7dO32oX5FBPmpdpk
 ---

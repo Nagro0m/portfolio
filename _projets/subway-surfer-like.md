@@ -1,30 +1,33 @@
 ---
+# ── Version anglaise + infos communes (médias, liens) ──
+# La traduction française est dans _projets/fr/subway-surfer-like.md
 title: Subway Surfer Like
-accroche: Endless runner inspiré de Subway Surfers, jouable sur Android.
-ordre: 7
-type: Projet d'école
+accroche: An endless runner in the style of Subway Surfers, also built for Android.
+ordre: 8
+categorie: ecole
 # annee: 2025
 moteur: Unreal Engine
 plateforme: PC, Android
-role: Programmeur 3C
-# equipe: "X personnes"
-# duree: "1 semaine"
+role: 3C programmer
+# equipe: "X people"
+# duree: "1 week"
 
-# Pas encore de vidéo ni d'image : ajoute-les ici quand tu en as.
+# No video or image yet: add them here when you have some.
 # couverture: /assets/img/projets/subway-surfer-like/couverture.webp
 # video: /assets/video/subway-surfer-like.mp4
 
 resume: >-
-  Un jeu pour explorer le genre de l'endless runner, avec une génération procédurale
-  qui fait apparaître les obstacles de façon cohérente, et une version Android.
+  A project to learn how endless runners work. Obstacles are generated procedurally
+  but always in a way the player can get through, and the game also runs on Android.
 
 contributions:
-  - "3C : déplacement fluide propre au genre"
-  - Effet visuel de déformation des objets au loin pour renforcer la sensation de vitesse
+  - Smooth, responsive movement, the way it feels in the original
+  - A visual effect that bends distant objects to make the speed feel stronger
 
 technos: [Unreal Engine, C++, Blueprint, Android, Perforce]
 
 liens:
-  - nom: Télécharger le jeu
+  - nom: Download the game
+    nom_fr: Télécharger le jeu
     url: https://mega.nz/file/iuAQmZqZ#3zNlhHWrI27tWeAwwyhrWhN0Q3XTH-j4Ruyw_YjTqxE
 ---

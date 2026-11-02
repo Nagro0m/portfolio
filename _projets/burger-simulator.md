@@ -1,11 +1,13 @@
 ---
+# ── Version anglaise + infos communes (médias, liens) ──
+# La traduction française est dans _projets/fr/burger-simulator.md
 title: Burger Simulator
-accroche: Simulation de restaurant faite seul, de A à Z.
+accroche: A restaurant sim I made on my own, from the design doc to the UI.
 ordre: 3
-type: Projet perso
+categorie: perso
 # annee: 2026
 moteur: Unreal Engine 5.6
-role: Solo — tous les systèmes (3C, GPE, UI, IA)
+role: Solo, every system (3C, gameplay, UI, AI)
 equipe: Solo
 
 couverture: /assets/img/projets/burger-simulator/couverture.webp
@@ -13,18 +15,18 @@ apercu: /assets/video/burger-simulator-apercu.mp4
 video: /assets/video/burger-simulator.mp4
 
 resume: >-
-  Objectif : concevoir un jeu complet seul, en prenant en charge tous les systèmes.
-  Inspiré des jeux de simulation de restauration, il reprend le service client,
-  la préparation des commandes, la gestion des stocks et la livraison des ingrédients.
+  I wanted to find out if I could make a complete game by myself. It's inspired by
+  restaurant simulators: customers walk in and order, you cook their food, keep an eye
+  on your stock and get new ingredients delivered.
 
 contributions:
-  - Game design complet, documenté dans un GDD
-  - "3C : déplacements, caméra et contrôles du joueur"
-  - "GPE : préparation des commandes, stocks, livraisons, à partir d'une architecture d'interactions modulaire"
-  - "IA : clients qui arrivent, commandent et attendent leur repas"
-  - Interface du jeu (UI)
+  - Wrote the game design document
+  - Player movement, camera and controls
+  - Order preparation, stock and deliveries, all built on one modular interaction system
+  - "Customer AI: they come in, order and wait for their meal"
+  - The whole UI
 
-technos: [Unreal Engine 5, C++, IA, UI, Game design]
+technos: [Unreal Engine 5, C++, AI, UI, Game design]
 
 galerie:
   - image: /assets/img/projets/burger-simulator/capture-1.webp
@@ -32,8 +34,10 @@ galerie:
   - image: /assets/img/projets/burger-simulator/capture-3.webp
 
 liens:
-  - nom: Télécharger le jeu
+  - nom: Download the game
+    nom_fr: Télécharger le jeu
     url: https://mega.nz/file/GjJzlSCL#oaMUjigHu_v0AnjA6QIroQPz1VbslxG1VJ2gi88vqGY
-  - nom: Game Design Document
+  - nom: Game design document
+    nom_fr: Game design document
     url: https://docs.google.com/document/d/1TIpyKvB4P1GrwShKLQHoLTUEsl5WuuL7S5Pmkqc5XSM/edit?usp=sharing
 ---

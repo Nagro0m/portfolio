@@ -1,0 +1,98 @@
+# Petits textes de l'interface, en anglais (en) et en français (fr).
+# Tu n'as normalement pas besoin d'y toucher.
+
+en:
+  accueil: /
+  skip: Skip to content
+  nav_projets: Projects
+  nav_apropos: About
+  nav_contact: Contact
+  nav_cv: Resume
+  langue_nom: English
+  me_contacter: Get in touch
+  telecharger_cv: Download my resume
+  en_bref: At a glance
+  projets: Projects
+  projets_indice: Open a project to see the video, what I worked on and the technical details.
+  projets_compte: projects below
+  apropos: About
+  parcours: Background
+  competences: Skills
+  maintenant: now
+  mon_role: My role
+  retour: ← All projects
+  le_projet: The project
+  ce_que_jai_fait: What I did
+  ce_que_je_fais: What I'm working on
+  captures: Screenshots
+  sous_le_capot: Under the hood
+  sous_le_capot_tag: technical
+  capture_de: Screenshot of
+  video_de: Video of
+  role: My role
+  equipe: Team
+  duree: Duration
+  moteur: Engine
+  plateforme: Platform
+  annee: Year
+  en_cours: In progress
+  precedent: Previous project
+  suivant: Next project
+  contact_titre: Contact
+  contact_phrase: Looking for an intern, a work-study student, or just have a question about a project? Drop me a line.
+  introuvable_titre: Page not found
+  introuvable_texte: This page doesn't exist or has moved.
+  retour_accueil: Back to the homepage
+  categories:
+    pro: Client project
+    ecole: School project
+    perso: Personal project
+    jam: Game jam
+
+fr:
+  accueil: /fr/
+  skip: Aller au contenu
+  nav_projets: Projets
+  nav_apropos: À propos
+  nav_contact: Contact
+  nav_cv: CV
+  langue_nom: Français
+  me_contacter: Me contacter
+  telecharger_cv: Télécharger mon CV
+  en_bref: En bref
+  projets: Projets
+  projets_indice: Ouvrez un projet pour voir la vidéo, ce que j'ai fait et le détail technique.
+  projets_compte: projets ci-dessous
+  apropos: À propos
+  parcours: Parcours
+  competences: Compétences
+  maintenant: en cours
+  mon_role: Mon rôle
+  retour: ← Tous les projets
+  le_projet: Le projet
+  ce_que_jai_fait: Ce que j'ai fait
+  ce_que_je_fais: Ce sur quoi je travaille
+  captures: Captures
+  sous_le_capot: Sous le capot
+  sous_le_capot_tag: partie technique
+  capture_de: Capture de
+  video_de: Vidéo de
+  role: Mon rôle
+  equipe: Équipe
+  duree: Durée
+  moteur: Moteur
+  plateforme: Plateforme
+  annee: Année
+  en_cours: En cours
+  precedent: Projet précédent
+  suivant: Projet suivant
+  contact_titre: Contact
+  contact_phrase: Vous cherchez un stagiaire, un alternant, ou vous avez simplement une question sur un projet ? Écrivez-moi.
+  introuvable_titre: Page introuvable
+  introuvable_texte: Cette page n'existe pas ou a été déplacée.
+  retour_accueil: Retour à l'accueil
+  categories:
+    pro: Projet client
+    ecole: Projet d'école
+    perso: Projet perso
+    jam: Game jam

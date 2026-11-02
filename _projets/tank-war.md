@@ -1,31 +1,33 @@
 ---
+# ── Version anglaise + infos communes (médias, liens) ──
+# La traduction française est dans _projets/fr/tank-war.md
 title: Tank War
-accroche: Combat de tanks en vue de dessus, en multijoueur local, sur un moteur C++ codé en cours.
+accroche: My first game, a two-player tank battle running on an engine we wrote in class.
 ordre: 5
-type: Projet d'école
+categorie: ecole
 annee: 2024
-moteur: Moteur maison (C++ / SFML)
-role: Programmeur gameplay (binôme)
-equipe: 2 personnes
-duree: 2 semaines
+moteur: Custom engine (C++ / SFML)
+role: Gameplay programmer (pair project)
+equipe: 2 people
+duree: 2 weeks
 
 couverture: /assets/img/projets/tank-war/couverture.webp
 apercu: /assets/video/tank-war-apercu.mp4
 video: /assets/video/tank-war.mp4
 
 resume: >-
-  Mon premier jeu. En binôme, nous avions deux semaines pour imaginer le concept,
-  trouver les assets et programmer le gameplay, sur un moteur 2D développé en cours
-  sur le modèle d'Unreal Engine (acteurs, composants, game mode).
+  Working in pairs, we had two weeks to come up with a concept, find assets and program
+  the game. It runs on a 2D engine we wrote in class, modeled on Unreal (actors,
+  components, game mode).
 
 contributions:
-  - Concept et gameplay pensés en binôme
-  - Personnalisation du tank avant la partie (chenilles, blindage, canon)
-  - "Déplacement du tank à la manette : accélération par paliers à la gâchette, rotation progressive"
-  - Génération semi-procédurale de la zone de jeu
-  - Combat à deux joueurs avec des obus
+  - Came up with the concept and gameplay with my teammate
+  - Tank customization before each match (tracks, hull, turret)
+  - "Gamepad driving: the trigger accelerates in steps and the tank turns gradually"
+  - Semi-procedural generation of the play area
+  - Two-player fights with shells
 
-technos: [C++, SFML, Multijoueur local, Génération procédurale, Git]
+technos: [C++, SFML, Local multiplayer, Procedural generation, Git]
 
 galerie:
   - image: /assets/img/projets/tank-war/capture-1.webp
@@ -33,19 +35,21 @@ galerie:
   - image: /assets/img/projets/tank-war/capture-3.webp
 
 liens:
-  - nom: Code source (GitHub)
+  - nom: Source code (GitHub)
+    nom_fr: Code source (GitHub)
     url: https://github.com/Nagro0m/TankWar-V2
-  - nom: Télécharger le jeu (.zip)
-    url: https://raw.githubusercontent.com/Nagro0m/portfolio/1e7dc8b92922972d0aca2aa546a6aeebf9fc5333/games/TankWar.zip
+  - nom: Download the game (.zip)
+    nom_fr: Télécharger le jeu (.zip)
+    url: /games/TankWar.zip
 ---
 
-### Un moteur organisé comme Unreal
+### An engine built like Unreal
 
-Le moteur reprend la logique d'Unreal : un `Actor` porte des `Component`, et chaque
-comportement est un composant réutilisable. Le déplacement du tank est donc un composant
-à part, `TankMovement`, qu'on peut cloner sur n'importe quel acteur.
+The engine follows Unreal's logic: an `Actor` holds `Component`s, and each behavior
+is its own reusable component. That's why the tank's movement lives in a separate
+`TankMovement` component that can be cloned onto any actor.
 
-<span class="fichier">TankMovement.h — extrait</span>
+<span class="fichier">TankMovement.h (excerpt)</span>
 
 ```cpp
 class TankMovement : public Component
@@ -70,18 +74,18 @@ public:
 };
 ```
 
-### Une conduite lisible à la manette
+### Driving that reads well on a gamepad
 
-La gâchette analogique est découpée en 5 paliers de vitesse plutôt qu'en valeur continue :
-le joueur sent clairement quand il accélère, et le tank garde une vitesse minimale
-pour ne jamais rester « collé » quand la gâchette est presque relâchée.
+The analog trigger is split into 5 speed steps instead of a continuous value. You can
+clearly feel when you speed up, and the tank keeps a minimum speed so it never feels
+stuck when the trigger is almost released.
 
-<span class="fichier">TankMovement.cpp — extrait</span>
+<span class="fichier">TankMovement.cpp (excerpt)</span>
 
 ```cpp
 float TankMovement::MapTriggerToSpeed(float triggerValue)
 {
-    // 0.0 → 1.0 arrondi au palier de 0.2 le plus proche
+    // 0.0 → 1.0, rounded to the nearest 0.2 step
     return round(triggerValue * 5.0f) * 0.2f;
 }
 
@@ -89,24 +93,24 @@ void TankMovement::ProcessBackRightController(const float _controllerBackRight)
 {
     moveSpeed = MapTriggerToSpeed(_controllerBackRight) * maxMoveSpeed;
 
-    if (_controllerBackRight == -1)   // gâchette relâchée
+    if (_controllerBackRight == -1)   // trigger released
     {
         moveSpeed = 0.0f;
         return;
     }
-    if (_controllerBackRight <= 0.1f) // vitesse minimale
+    if (_controllerBackRight <= 0.1f) // minimum speed
         moveSpeed = 0.1f * maxMoveSpeed;
 }
 ```
 
-Pour la rotation, j'interpole l'angle à vitesse constante en prenant toujours
-le chemin le plus court (le tank ne fait jamais un tour complet pour passer de 350° à 10°).
+For turning, the angle is interpolated at a constant speed and always takes the
+shortest way round, so the tank never spins all the way around to go from 350° to 10°.
 
 ```cpp
 float TankMovement::InterpAngleConstantTo(float _current, float _target,
                                           float _deltaTime, float _speed)
 {
-    // Écart ramené entre -180° et 180°
+    // Difference brought back between -180° and 180°
     float _delta = fmod(_target - _current + 180.0f, 360.0f) - 180.0f;
     if (_delta > 180.0f)       _delta -= 360.0f;
     else if (_delta < -180.0f) _delta += 360.0f;
