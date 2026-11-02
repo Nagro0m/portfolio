@@ -1,0 +1,117 @@
+---
+layout: default
+---
+{%- assign projets = site.projets | sort: "ordre" -%}
+{%- for pr in projets -%}
+  {%- if pr.url == page.url -%}
+    {%- assign i = forloop.index0 -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign i_prec = i | minus: 1 -%}
+{%- assign i_suiv = i | plus: 1 -%}
+{%- assign technique = content | strip_html | strip -%}
+
+<article class="projet wrap type--{{ page.type | slugify: "latin" }}">
+  <a class="retour" href="{{ '/#projets' | relative_url }}">← Tous les projets</a>
+
+  <header class="projet__tete">
+    <p class="projet__type">{{ page.type }}{% if page.annee %} · {{ page.annee }}{% endif %}</p>
+    <h1>{{ page.title }}</h1>
+    <p class="projet__accroche">{{ page.accroche }}</p>
+  </header>
+
+  <div class="projet__media">
+    {%- if page.youtube %}
+    <iframe src="https://www.youtube-nocookie.com/embed/{{ page.youtube }}" title="Vidéo de {{ page.title }}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
+    {%- elsif page.video %}
+    <video controls preload="none" playsinline {% if page.couverture %}poster="{{ page.couverture | relative_url }}"{% endif %}>
+      <source src="{{ page.video | relative_url }}" type="video/mp4">
+    </video>
+    {%- elsif page.couverture %}
+    <img src="{{ page.couverture | relative_url }}" alt="Capture de {{ page.title }}">
+    {%- endif %}
+  </div>
+
+  <div class="projet__corps">
+    <div class="projet__principal">
+      {%- if page.resume %}
+      <section>
+        <h2>Le projet</h2>
+        <p>{{ page.resume }}</p>
+      </section>
+      {%- endif %}
+
+      {%- if page.contributions %}
+      <section>
+        <h2>Ce que j'ai fait</h2>
+        <ul class="contributions">
+          {%- for c in page.contributions %}
+          <li>{{ c | markdownify | remove: '<p>' | remove: '</p>' | strip }}</li>
+          {%- endfor %}
+        </ul>
+      </section>
+      {%- endif %}
+
+      {%- if page.galerie %}
+      <section>
+        <h2>Captures</h2>
+        <div class="galerie">
+          {%- for img in page.galerie %}
+          {%- assign src = img.image | default: img %}
+          {%- capture alt_defaut %}Capture de {{ page.title }} ({{ forloop.index }}){% endcapture %}
+          <figure>
+            <a href="{{ src | relative_url }}" target="_blank" rel="noopener">
+              <img src="{{ src | relative_url }}" alt="{{ img.legende | default: alt_defaut | escape }}" loading="lazy">
+            </a>
+            {%- if img.legende %}<figcaption>{{ img.legende }}</figcaption>{% endif %}
+          </figure>
+          {%- endfor %}
+        </div>
+      </section>
+      {%- endif %}
+
+      {%- if technique != "" %}
+      <section class="technique">
+        <h2>Sous le capot <span>partie technique</span></h2>
+        <div class="prose">
+          {{ content }}
+        </div>
+      </section>
+      {%- endif %}
+    </div>
+
+    <aside class="fiche" aria-label="Fiche du projet">
+      <dl>
+        {%- if page.role %}<div><dt>Mon rôle</dt><dd>{{ page.role }}</dd></div>{% endif %}
+        {%- if page.equipe %}<div><dt>Équipe</dt><dd>{{ page.equipe }}</dd></div>{% endif %}
+        {%- if page.duree %}<div><dt>Durée</dt><dd>{{ page.duree }}</dd></div>{% endif %}
+        {%- if page.moteur %}<div><dt>Moteur</dt><dd>{{ page.moteur }}</dd></div>{% endif %}
+        {%- if page.plateforme %}<div><dt>Plateforme</dt><dd>{{ page.plateforme }}</dd></div>{% endif %}
+        {%- if page.annee %}<div><dt>Année</dt><dd>{{ page.annee }}</dd></div>{% endif %}
+      </dl>
+      {%- if page.technos %}
+      <ul class="tags" aria-label="Technologies">
+        {%- for t in page.technos %}<li>{{ t }}</li>{% endfor %}
+      </ul>
+      {%- endif %}
+      {%- if page.liens %}
+      <ul class="fiche__liens">
+        {%- for l in page.liens %}
+        <li><a href="{{ l.url | relative_url }}" target="_blank" rel="noopener">{{ l.nom }} <span aria-hidden="true">↗</span></a></li>
+        {%- endfor %}
+      </ul>
+      {%- endif %}
+    </aside>
+  </div>
+
+  <nav class="suite" aria-label="Autres projets">
+    {%- if i_prec >= 0 %}
+    {%- assign pp = projets[i_prec] %}
+    <a class="suite__lien" href="{{ pp.url | relative_url }}"><span>Projet précédent</span>{{ pp.title }}</a>
+    {%- else %}<span></span>{% endif %}
+    {%- if i_suiv < projets.size %}
+    {%- assign ps = projets[i_suiv] %}
+    <a class="suite__lien suite__lien--droite" href="{{ ps.url | relative_url }}"><span>Projet suivant</span>{{ ps.title }}</a>
+    {%- endif %}
+  </nav>
+</article>

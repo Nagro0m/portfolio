@@ -1,0 +1,81 @@
+# ─────────────────────────────────────────────
+#  TES INFOS — tout le texte de la page d'accueil
+# ─────────────────────────────────────────────
+
+nom: Morgan Fourquet
+metier: Développeur gameplay
+moteurs_court: Unreal Engine (C++) · Unity (C#)
+
+# Phrase d'intro (une ou deux lignes, lisible par un RH)
+intro: >-
+  Étudiant en 3e année de développement jeu vidéo à Objectif 3D, à Montpellier.
+  Je programme ce que le joueur touche : déplacements, caméra et contrôles (3C),
+  et les mécaniques de jeu (GPE).
+
+# Ce que tu cherches (affiché avec un point de couleur). Laisse vide pour masquer.
+recherche: Recherche un stage — ouvert à l'alternance l'année suivante
+
+email: morgan.fourquet@outlook.fr
+linkedin: https://www.linkedin.com/in/morgan-fourquet-57148b26a/
+github: https://github.com/Nagro0m
+# Dépose ton CV dans assets/ et mets le chemin ici (ex : /assets/CV-Morgan-Fourquet.pdf)
+# Laisse vide pour masquer le bouton.
+cv: ""
+
+# Encadré "En bref" à côté de l'intro
+en_bref:
+  - label: Formation
+    valeur: Objectif 3D — 3e année (2026–2027)
+  - label: Spécialité
+    valeur: Gameplay (GPE) et 3C
+  - label: Moteurs
+    valeur: Unreal Engine 5, Unity
+  - label: Langages
+    valeur: C++, C#, Python
+  - label: Basé à
+    valeur: Montpellier, France
+
+# Section "À propos"
+a_propos:
+  - >-
+    J'aime les systèmes qui se sentent bien manette en main : un personnage qui répond
+    au quart de tour, une caméra qui ne gêne jamais, une interaction claire.
+    C'est ce que je travaille sur chaque projet, en Unreal Engine (C++ et Blueprint)
+    comme en Unity (C#).
+  - >-
+    Je code proprement et de façon modulaire, pour que le reste de l'équipe puisse
+    s'appuyer sur mes systèmes. J'écris aussi des outils en Python pour accélérer
+    le travail de l'équipe, et j'ai déjà mené plusieurs équipes de programmeurs.
+
+competences:
+  - groupe: Moteurs
+    items: [Unreal Engine 5 (C++, Blueprint), Unity (C#)]
+  - groupe: Langages
+    items: [C++, C#, Python (outils, automatisation)]
+  - groupe: Domaines
+    items: [Gameplay (GPE), 3C, IA de jeu, Multijoueur, Génération procédurale, VR]
+  - groupe: Outils
+    items: [Perforce (P4V), Git, Visual Studio, Rider, Notion]
+  - groupe: Équipe
+    items: [Lead de programmeurs, Coordination entre pôles, Planification de sprints]
+
+parcours:
+  - periode: 2026 – 2027
+    titre: 3e année — Objectif 3D
+    en_cours: true
+    points:
+      - Lead programmeur sur le projet de fin d'études, une production de 8 mois en équipe pluridisciplinaire
+      - Outils Python pour l'équipe et organisation des sprints
+  - periode: 2025 – 2026
+    titre: 2e année — Objectif 3D
+    points:
+      - C# et Unity ; gameplay, 3C, IA et réseau
+      - Nombreux remakes courts (environ une semaine chacun)
+      - Formation VR pour La Poste (projet professionnel d'un mois)
+      - Global Game Jam 2026
+  - periode: 2024 – 2025
+    titre: 1re année — Objectif 3D
+    points:
+      - Bases du C++ et moteur 2D maison inspiré d'Unreal (SFML)
+      - Premier jeu, Tank War, sur ce moteur
+      - Découverte d'Unreal Engine et projet de fin d'année

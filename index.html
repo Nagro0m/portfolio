@@ -1,0 +1,87 @@
+---
+layout: default
+---
+{%- assign p = site.data.profil -%}
+{%- assign projets = site.projets | sort: "ordre" -%}
+
+<section class="intro wrap">
+  <div class="intro__texte">
+    <h1 class="intro__nom">{{ p.nom }}</h1>
+    <p class="intro__metier">{{ p.metier }} <span>— {{ p.moteurs_court }}</span></p>
+    <p class="intro__phrase">{{ p.intro }}</p>
+    {%- if p.recherche != "" and p.recherche %}
+    <p class="statut"><span class="statut__point" aria-hidden="true"></span>{{ p.recherche }}</p>
+    {%- endif %}
+    <div class="actions">
+      <a class="bouton" href="mailto:{{ p.email }}">Me contacter</a>
+      {%- if p.cv != "" and p.cv %}
+      <a class="bouton bouton--ligne" href="{{ p.cv | relative_url }}" target="_blank" rel="noopener">Télécharger le CV</a>
+      {%- endif %}
+      <a class="lien-simple" href="{{ p.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="lien-simple" href="{{ p.github }}" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+
+  <aside class="bref" aria-label="En bref">
+    <h2 class="bref__titre">En bref</h2>
+    <dl>
+      {%- for ligne in p.en_bref %}
+      <div><dt>{{ ligne.label }}</dt><dd>{{ ligne.valeur }}</dd></div>
+      {%- endfor %}
+      <div><dt>Projets</dt><dd>{{ projets.size }} projets présentés ci-dessous</dd></div>
+    </dl>
+  </aside>
+</section>
+
+<section class="section wrap" id="projets" aria-labelledby="titre-projets">
+  <div class="section__tete">
+    <h2 id="titre-projets">Projets</h2>
+    <p>Cliquez sur un projet pour voir la vidéo, mon rôle exact et le détail technique.</p>
+  </div>
+  <div class="grille">
+    {%- for projet in projets %}
+    {% include carte-projet.html projet=projet %}
+    {%- endfor %}
+  </div>
+</section>
+
+<section class="section wrap" id="parcours" aria-labelledby="titre-parcours">
+  <div class="section__tete">
+    <h2 id="titre-parcours">À propos</h2>
+  </div>
+
+  <div class="apropos">
+    <div class="apropos__texte">
+      {%- for para in p.a_propos %}
+      <p>{{ para }}</p>
+      {%- endfor %}
+
+      <h3 class="sous-titre">Parcours</h3>
+      <ol class="parcours">
+        {%- for etape in p.parcours %}
+        <li class="parcours__etape{% if etape.en_cours %} parcours__etape--actuelle{% endif %}">
+          <p class="parcours__periode">{{ etape.periode }}{% if etape.en_cours %} <span>en cours</span>{% endif %}</p>
+          <p class="parcours__titre">{{ etape.titre }}</p>
+          <ul>
+            {%- for point in etape.points %}
+            <li>{{ point }}</li>
+            {%- endfor %}
+          </ul>
+        </li>
+        {%- endfor %}
+      </ol>
+    </div>
+
+    <div class="apropos__competences">
+      <h3 class="sous-titre">Compétences</h3>
+      <dl class="competences">
+        {%- for g in p.competences %}
+        <div>
+          <dt>{{ g.groupe }}</dt>
+          <dd>{{ g.items | join: ", " }}</dd>
+        </div>
+        {%- endfor %}
+      </dl>
+    </div>
+  </div>
+</section>

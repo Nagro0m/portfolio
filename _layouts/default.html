@@ -1,0 +1,72 @@
+{%- assign p = site.data.profil -%}
+{%- if page.title and page.layout == 'projet' -%}
+  {%- capture titre_page -%}{{ page.title }} — {{ p.nom }}{%- endcapture -%}
+{%- elsif page.title -%}
+  {%- assign titre_page = page.title -%}
+{%- else -%}
+  {%- assign titre_page = site.title -%}
+{%- endif -%}
+{%- assign desc_page = page.accroche | default: site.description -%}
+{%- assign img_page = page.couverture | default: '/assets/img/apercu-site.jpg' -%}
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'fr' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ titre_page }}</title>
+  <meta name="description" content="{{ desc_page | strip_html | escape }}">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ titre_page | escape }}">
+  <meta property="og:description" content="{{ desc_page | strip_html | escape }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:image" content="{{ img_page | absolute_url }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+
+  <header class="topbar">
+    <div class="wrap topbar__inner">
+      <a class="topbar__nom" href="{{ '/' | relative_url }}">{{ p.nom }}</a>
+      <nav aria-label="Navigation principale">
+        <ul class="topbar__nav">
+          <li><a href="{{ '/#projets' | relative_url }}">Projets</a></li>
+          <li><a href="{{ '/#parcours' | relative_url }}">Parcours</a></li>
+          {%- if p.cv != "" and p.cv %}
+          <li><a href="{{ p.cv | relative_url }}" target="_blank" rel="noopener">CV</a></li>
+          {%- endif %}
+          <li><a href="{{ '/#contact' | relative_url }}">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenu">
+    {{ content }}
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="wrap">
+      <p class="footer__kicker">Contact</p>
+      <p class="footer__phrase">Un stage, une alternance, une question sur un projet&nbsp;?</p>
+      <a class="footer__email" href="mailto:{{ p.email }}">{{ p.email }}</a>
+      <ul class="footer__liens">
+        <li><a href="{{ p.linkedin }}" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="{{ p.github }}" target="_blank" rel="noopener">GitHub</a></li>
+        {%- if p.cv != "" and p.cv %}
+        <li><a href="{{ p.cv | relative_url }}" target="_blank" rel="noopener">CV (PDF)</a></li>
+        {%- endif %}
+      </ul>
+      <p class="footer__bas">© {{ site.time | date: '%Y' }} {{ p.nom }} · Montpellier</p>
+    </div>
+  </footer>
+
+  <script src="{{ '/assets/js/site.js' | relative_url }}" defer></script>
+</body>
+</html>

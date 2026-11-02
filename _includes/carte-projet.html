@@ -1,0 +1,24 @@
+{%- assign pr = include.projet -%}
+<article class="carte type--{{ pr.type | slugify: "latin" }}">
+  <a class="carte__lien" href="{{ pr.url | relative_url }}">
+    <div class="carte__media{% unless pr.couverture %} carte__media--vide{% endunless %}">
+      {%- if pr.couverture %}
+      <img src="{{ pr.couverture | relative_url }}" alt="" loading="lazy" width="960" height="540">
+      {%- else %}
+      <span class="carte__titre-vide" aria-hidden="true">{{ pr.title }}</span>
+      {%- endif %}
+      {%- if pr.apercu %}
+      <video data-apercu="{{ pr.apercu | relative_url }}" muted loop playsinline preload="none" aria-hidden="true"></video>
+      {%- endif %}
+      <span class="carte__type">{{ pr.type }}</span>
+    </div>
+    <h3 class="carte__titre">{{ pr.title }}</h3>
+    <p class="carte__accroche">{{ pr.accroche }}</p>
+    <p class="carte__meta">
+      {{ pr.moteur }}{% if pr.equipe %} · {{ pr.equipe }}{% endif %}{% if pr.duree %} · {{ pr.duree }}{% endif %}
+    </p>
+    {%- if pr.role %}
+    <p class="carte__role"><span>Mon rôle</span> {{ pr.role }}</p>
+    {%- endif %}
+  </a>
+</article>
