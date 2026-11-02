@@ -1,15 +1,10 @@
 ---
-# ── Version anglaise + infos communes (médias, liens) ──
-# La traduction française est dans _projets/fr/rayman-m-remake.md
 title: Rayman M Remake
 accroche: A Rayman M race track rebuilt in Unreal, playable locally or online through Steam.
 ordre: 4
 categorie: ecole
-# annee: 2025
 moteur: Unreal Engine
 role: 3C programmer
-# equipe: "X people"
-# duree: "X weeks"
 
 couverture: /assets/img/projets/rayman-m-remake/couverture.webp
 apercu: /assets/video/rayman-m-remake-apercu.mp4

@@ -1,20 +1,11 @@
 ---
-# ── Version anglaise + infos communes (médias, liens) ──
-# La traduction française est dans _projets/fr/subway-surfer-like.md
 title: Subway Surfer Like
 accroche: An endless runner in the style of Subway Surfers, also built for Android.
 ordre: 8
 categorie: ecole
-# annee: 2025
 moteur: Unreal Engine
 plateforme: PC, Android
 role: 3C programmer
-# equipe: "X people"
-# duree: "1 week"
-
-# No video or image yet: add them here when you have some.
-# couverture: /assets/img/projets/subway-surfer-like/couverture.webp
-# video: /assets/video/subway-surfer-like.mp4
 
 resume: >-
   A project to learn how endless runners work. Obstacles are generated procedurally

@@ -1,11 +1,8 @@
 ---
-# ── Version anglaise + infos communes (médias, liens) ──
-# La traduction française est dans _projets/fr/burger-simulator.md
 title: Burger Simulator
 accroche: A restaurant sim I made on my own, from the design doc to the UI.
 ordre: 3
 categorie: perso
-# annee: 2026
 moteur: Unreal Engine 5.6
 role: Solo, every system (3C, gameplay, UI, AI)
 equipe: Solo

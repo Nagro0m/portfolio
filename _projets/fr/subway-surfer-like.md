@@ -1,5 +1,4 @@
 ---
-# Version française. Les médias, liens et infos communes sont dans _projets/subway-surfer-like.md
 title: Subway Surfer Like
 accroche: Un endless runner façon Subway Surfers, qui tourne aussi sur Android.
 role: Programmeur 3C

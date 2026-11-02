@@ -1,22 +1,16 @@
 ---
-# ── Version anglaise + infos communes (médias, liens) ──
-# La traduction française est dans _projets/fr/harvest-panic.md
 title: Harvest Panic
 accroche: A small farming game where crows try to eat your wheat before you can harvest it.
 ordre: 6
 categorie: perso
 annee: 2026
-en_cours: true           # affiche le badge "In progress" / "En cours" ; enlève la ligne quand c'est fini
+en_cours: true
 moteur: Unreal Engine 5 (Blueprints)
 role: Solo, every system
 equipe: Solo
 duree: 3 to 4 days
 
-# ⚠️ IMAGES TEMPORAIRES (copiées d'un autre projet) : remplace les fichiers
-# dans assets/img/projets/harvest-panic/ par tes vraies captures, en gardant les mêmes noms.
 couverture: /assets/img/projets/harvest-panic/couverture.webp
-# apercu: /assets/video/harvest-panic-apercu.mp4
-# video: /assets/video/harvest-panic.mp4
 
 resume: >-
   A short game I'm making for my portfolio, from scratch in Blueprints with my own map:

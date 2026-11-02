@@ -1,5 +1,4 @@
 ---
-# Version française. Les médias, liens et infos communes sont dans _projets/la-poste-vr.md
 title: La Poste VR
 accroche: Une formation à la sécurité en VR pour le centre de tri La Poste de Mauguio, faite avec mon école.
 role: Co-lead étudiant, programmeur gameplay

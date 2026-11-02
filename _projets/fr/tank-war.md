@@ -1,5 +1,4 @@
 ---
-# Version française. Les médias, liens et infos communes sont dans _projets/tank-war.md
 title: Tank War
 accroche: Mon premier jeu, une bataille de tanks à deux joueurs sur un moteur qu'on a codé en cours.
 role: Programmeur gameplay (binôme)

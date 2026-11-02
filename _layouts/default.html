@@ -1,11 +1,9 @@
-{%- comment -%} Langue de la page (anglais par défaut) {%- endcomment -%}
 {%- assign lang = page.lang | default: 'en' -%}
 {%- if lang == 'fr' -%}{%- assign autre = 'en' -%}{%- else -%}{%- assign autre = 'fr' -%}{%- endif -%}
 {%- assign t = site.data.ui[lang] -%}
 {%- assign p = site.data.profil -%}
 {%- assign pl = p[lang] -%}
 
-{%- comment -%} Adresse de la même page dans l'autre langue {%- endcomment -%}
 {%- assign alt_url = site.data.ui[autre].accueil -%}
 {%- if page.collection == 'projets' -%}
   {%- assign alt_doc = site.projets | where: "lang", autre | where: "slug", page.slug | first -%}
@@ -63,7 +61,6 @@
           <li><a href="{{ pl.cv | relative_url }}" target="_blank" rel="noopener">{{ t.nav_cv }}</a></li>
           {%- endif %}
           <li><a href="{{ t.accueil | append: '#contact' | relative_url }}">{{ t.nav_contact }}</a></li>
-          {%- comment %} Lien vers la même page dans l'autre langue {% endcomment %}
           {%- if lang == 'en' %}
           <li class="topbar__langue"><a href="{{ url_fr | relative_url }}" hreflang="fr" lang="fr" title="Version française">FR</a></li>
           {%- else %}

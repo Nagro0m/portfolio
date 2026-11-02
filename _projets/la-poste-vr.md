@@ -1,16 +1,13 @@
 ---
-# ── Version anglaise + infos communes (médias, liens) ──
-# La traduction française est dans _projets/fr/la-poste-vr.md
 title: La Poste VR
 accroche: A VR safety training app for La Poste's sorting center in Mauguio, built with my school.
 ordre: 1
-categorie: pro            # pro / ecole / perso / jam
+categorie: pro
 annee: 2026
 moteur: Unity
 plateforme: Meta Quest (VR)
 role: Student co-lead, gameplay programmer
 duree: 1 month
-# equipe: "X students"
 
 couverture: /assets/img/projets/la-poste-vr/couverture.webp
 apercu: /assets/video/la-poste-vr-apercu.mp4

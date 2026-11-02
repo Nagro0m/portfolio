@@ -1,25 +1,19 @@
-/* ==========================================================
-   Portfolio — Morgan Fourquet
-   Couleurs et polices modifiables ici, en haut du fichier.
-   ========================================================== */
-
 :root {
   color-scheme: dark;
-  --papier: #141413;      /* fond */
-  --surface: #1c1b19;     /* fond des encadrés */
-  --profond: #0d0d0c;     /* fond du footer et du code */
-  --encre: #ecebe6;       /* texte principal */
-  --gris: #a39e94;        /* texte secondaire */
-  --trait: #2e2c29;       /* bordures */
-  --accent: #f2884b;      /* couleur d'accent (boutons, liens, survol) */
-  --sur-accent: #141413;  /* texte posé sur l'accent */
+  --papier: #141413;
+  --surface: #1c1b19;
+  --profond: #0d0d0c;
+  --encre: #ecebe6;
+  --gris: #a39e94;
+  --trait: #2e2c29;
+  --accent: #f2884b;
+  --sur-accent: #141413;
 
-  /* Couleur de chaque type de projet (badge sur les cartes) */
   --type-pro: #e8b44c;
   --type-ecole: #7fb0e8;
   --type-perso: #8cc084;
   --type-jam: #d49be8;
-  --dispo: #8cc084;       /* point "Recherche un stage" */
+  --dispo: #8cc084;
 
   --police: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
@@ -78,8 +72,6 @@ p { margin: 0 0 1em; }
 }
 .skip:focus { left: 8px; }
 
-/* ---------- Barre du haut ---------- */
-
 .topbar { border-bottom: 1px solid var(--trait); }
 
 .topbar__inner {
@@ -105,7 +97,6 @@ p { margin: 0 0 1em; }
   padding: 0;
 }
 
-/* Lien de langue (FR / EN) à droite de Contact */
 .topbar__langue {
   display: flex;
   align-items: center;
@@ -128,8 +119,6 @@ p { margin: 0 0 1em; }
   font-size: 0.95rem;
 }
 .topbar__nav a:hover { color: var(--encre); text-decoration: underline; text-underline-offset: 4px; }
-
-/* ---------- Intro ---------- */
 
 .intro {
   display: grid;
@@ -207,7 +196,6 @@ p { margin: 0 0 1em; }
 }
 .lien-simple:hover { color: var(--accent); }
 
-/* Encadré "En bref" */
 .bref {
   border-top: 2px solid var(--accent);
   padding-top: 14px;
@@ -231,8 +219,6 @@ p { margin: 0 0 1em; }
 .bref dt { color: var(--gris); font-size: 0.9rem; }
 .bref dd { margin: 0; font-weight: 500; }
 
-/* ---------- Sections ---------- */
-
 .section {
   padding-top: 56px;
   padding-bottom: 72px;
@@ -255,8 +241,6 @@ p { margin: 0 0 1em; }
   font-weight: 700;
   margin: 40px 0 20px;
 }
-
-/* ---------- Cartes projet ---------- */
 
 .grille {
   display: grid;
@@ -318,13 +302,11 @@ p { margin: 0 0 1em; }
   letter-spacing: 0.05em;
 }
 
-/* Couleur selon le type de projet (cartes + page projet) */
 .type--pro   { --couleur-type: var(--type-pro); }
 .type--ecole { --couleur-type: var(--type-ecole); }
 .type--perso { --couleur-type: var(--type-perso); }
 .type--jam   { --couleur-type: var(--type-jam); }
 
-/* Badge "En cours" sur la carte */
 .carte__statut {
   position: absolute;
   top: 10px;
@@ -374,8 +356,6 @@ p { margin: 0 0 1em; }
   letter-spacing: 0.06em;
   color: var(--gris);
 }
-
-/* ---------- À propos / Parcours ---------- */
 
 .apropos {
   display: grid;
@@ -436,8 +416,6 @@ p { margin: 0 0 1em; }
 }
 .competences dd { margin: 0; font-weight: 500; }
 
-/* ---------- Footer / contact ---------- */
-
 .footer {
   background: var(--profond);
   color: var(--encre);
@@ -475,8 +453,6 @@ p { margin: 0 0 1em; }
 .footer__liens a { display: inline-block; padding: 6px 0; text-underline-offset: 4px; }
 .footer__liens a:hover { color: var(--accent); }
 .footer__bas { font-size: 0.85rem; color: var(--gris); margin: 0; }
-
-/* ---------- Page projet ---------- */
 
 .projet { padding-top: 32px; padding-bottom: 64px; }
 
@@ -574,7 +550,6 @@ p { margin: 0 0 1em; }
   margin-top: 6px;
 }
 
-/* Fiche projet (colonne de droite) */
 .fiche {
   position: sticky;
   top: 24px;
@@ -622,7 +597,6 @@ p { margin: 0 0 1em; }
 }
 .fiche__liens a:hover { border-color: var(--accent); color: var(--accent); }
 
-/* Partie technique (contenu Markdown du projet) */
 .technique h2 span {
   margin-left: 8px;
   font-family: var(--mono);
@@ -656,7 +630,6 @@ p { margin: 0 0 1em; }
   border-radius: 3px;
 }
 
-/* Blocs de code */
 .prose div.highlighter-rouge,
 .prose figure.highlight { margin: 16px 0 24px; }
 
@@ -683,7 +656,6 @@ p { margin: 0 0 1em; }
   margin: 20px 0 -10px;
 }
 
-/* Couleurs de syntaxe (Rouge) */
 .highlight .c, .highlight .c1, .highlight .cm, .highlight .cs, .highlight .cp, .highlight .cpf { color: #8f897d; font-style: italic; }
 .highlight .cp { font-style: normal; color: #c9a26b; }
 .highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv { color: #f0a46b; }
@@ -696,7 +668,6 @@ p { margin: 0 0 1em; }
 .highlight .na, .highlight .nt { color: #f0a46b; }
 .highlight .err { color: #ecebe6; background: none; }
 
-/* Projet précédent / suivant */
 .suite {
   display: flex;
   justify-content: space-between;
@@ -725,19 +696,15 @@ p { margin: 0 0 1em; }
 .suite__lien:hover { color: var(--accent); }
 .suite__lien--droite { text-align: right; margin-left: auto; }
 
-/* Page 404 */
 .erreur { padding: 96px 24px; }
 .erreur h1 { font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 800; margin-bottom: 12px; }
-
-/* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
   .intro, .apropos { grid-template-columns: 1fr; gap: 48px; }
   .intro { padding-top: 48px; padding-bottom: 56px; }
 
   .projet__corps { grid-template-columns: 1fr; gap: 0; }
-  /* Sur mobile, la fiche (rôle, équipe, durée) passe avant le texte */
-  .fiche { position: static; order: -1; margin-bottom: 40px; }
+    .fiche { position: static; order: -1; margin-bottom: 40px; }
 }
 
 @media (max-width: 560px) {

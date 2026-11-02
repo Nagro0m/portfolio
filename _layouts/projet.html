@@ -1,11 +1,6 @@
 ---
 layout: default
 ---
-{%- comment -%}
-  Page projet. Le fichier anglais (_projets/nom.md) contient toutes les infos ;
-  le fichier français (_projets/fr/nom.md) ne contient que les textes traduits.
-  Tout champ absent en français est repris de l'anglais.
-{%- endcomment -%}
 {%- assign lang = page.lang | default: 'en' -%}
 {%- assign t = site.data.ui[lang] -%}
 {%- if lang == 'en' -%}

@@ -1,6 +1,4 @@
 ---
-# ── Version anglaise + infos communes (médias, liens) ──
-# La traduction française est dans _projets/fr/tank-war.md
 title: Tank War
 accroche: My first game, a two-player tank battle running on an engine we wrote in class.
 ordre: 5

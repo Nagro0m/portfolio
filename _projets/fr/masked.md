@@ -1,5 +1,4 @@
 ---
-# Version française. Les médias, liens et infos communes sont dans _projets/masked.md
 title: Masked
 accroche: Un roguelike de salle en salle, fait en 48 h à la Global Game Jam 2026 sur le thème « Masque ».
 role: Programmeur gameplay, génération des salles

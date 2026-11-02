@@ -1,14 +1,8 @@
-# ─────────────────────────────────────────────
-#  TES INFOS — tout le texte de la page d'accueil
-#  Bloc "en:" = version anglaise (par défaut), bloc "fr:" = version française
-# ─────────────────────────────────────────────
-
 nom: Morgan Fourquet
 email: morgan.fourquet@outlook.fr
 linkedin: https://www.linkedin.com/in/morgan-fourquet-57148b26a/
 github: https://github.com/Nagro0m
 
-# ═════════════════════ ENGLISH ═════════════════════
 en:
   metier: Gameplay programmer
   moteurs_court: Unreal Engine (C++) · Unity (C#)
@@ -19,10 +13,8 @@ en:
     I mostly work on gameplay: how the character moves, how the camera follows,
     and the mechanics built around them.
 
-  # Leave empty ("") to hide
   recherche: Looking for an internship, and open to work-study the year after
 
-  # Put your PDF in assets/ and its path here, e.g. /assets/CV-Morgan-Fourquet-EN.pdf
   cv: ""
 
   en_bref:
@@ -81,7 +73,6 @@ en:
         - My first game, Tank War, on that engine
         - First steps in Unreal Engine and an end-of-year project
 
-# ═════════════════════ FRANÇAIS ═════════════════════
 fr:
   metier: Développeur gameplay
   moteurs_court: Unreal Engine (C++) · Unity (C#)
@@ -92,10 +83,8 @@ fr:
     Je travaille surtout sur le gameplay : la façon dont le personnage bouge,
     dont la caméra le suit, et les mécaniques construites autour.
 
-  # Laisse vide ("") pour masquer
   recherche: Je cherche un stage, et je suis ouvert à une alternance l'année suivante
 
-  # Dépose ton PDF dans assets/ et mets son chemin ici, ex : /assets/CV-Morgan-Fourquet.pdf
   cv: ""
 
   en_bref:

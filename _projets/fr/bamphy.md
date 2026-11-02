@@ -1,5 +1,4 @@
 ---
-# Version française. Les médias, liens et infos communes sont dans _projets/bamphy.md
 title: Bamphy
 accroche: Un jeu d'aventure à énigmes dans un temple inspiré d'Angkor Vat.
 role: Lead programmation, programmeur gameplay

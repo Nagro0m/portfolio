@@ -1,15 +1,10 @@
 ---
-# ── Version anglaise + infos communes (médias, liens) ──
-# La traduction française est dans _projets/fr/bamphy.md
 title: Bamphy
 accroche: A puzzle adventure game set in a temple inspired by Angkor Wat.
 ordre: 2
 categorie: ecole
-# annee: 2025
 moteur: Unreal Engine 5.4
 role: Programming lead, gameplay programmer
-# equipe: "X people"
-# duree: "X months"
 
 couverture: /assets/img/projets/bamphy/couverture.webp
 apercu: /assets/video/bamphy-apercu.mp4

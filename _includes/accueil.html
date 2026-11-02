@@ -1,11 +1,7 @@
-{%- comment -%}
-  Contenu de la page d'accueil, partagé entre l'anglais (index.html) et le français (fr/index.html).
-{%- endcomment -%}
 {%- assign lang = page.lang | default: 'en' -%}
 {%- assign t = site.data.ui[lang] -%}
 {%- assign p = site.data.profil -%}
 {%- assign pl = p[lang] -%}
-{%- comment -%} La liste des projets suit les fichiers anglais (ordre, médias) {%- endcomment -%}
 {%- assign projets = site.projets | where: "lang", "en" | sort: "ordre" -%}
 
 <section class="intro wrap">

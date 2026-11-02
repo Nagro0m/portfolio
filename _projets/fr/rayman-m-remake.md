@@ -1,5 +1,4 @@
 ---
-# Version française. Les médias, liens et infos communes sont dans _projets/rayman-m-remake.md
 title: Rayman M Remake
 accroche: Un circuit de Rayman M refait sous Unreal, jouable en local ou en ligne via Steam.
 role: Programmeur 3C

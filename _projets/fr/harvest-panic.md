@@ -1,5 +1,4 @@
 ---
-# Version française. Les médias, liens et infos communes sont dans _projets/harvest-panic.md
 title: Harvest Panic
 accroche: Un petit jeu de ferme où des corbeaux essaient de manger le blé avant qu'on ait pu le récolter.
 role: Solo, tous les systèmes

@@ -1,6 +1,4 @@
 ---
-# ── Version anglaise + infos communes (médias, liens) ──
-# La traduction française est dans _projets/fr/masked.md
 title: Masked
 accroche: A room-by-room roguelike made in 48 hours at Global Game Jam 2026, on the theme "Mask".
 ordre: 7
@@ -9,7 +7,6 @@ annee: 2026
 moteur: Unreal Engine
 role: Gameplay programmer, room generation
 duree: 48 hours
-# equipe: "X people"
 
 couverture: /assets/img/projets/masked/couverture.webp
 apercu: /assets/video/masked-apercu.mp4
