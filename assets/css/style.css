@@ -97,12 +97,6 @@ p { margin: 0 0 1em; }
   text-decoration: none;
 }
 
-.topbar__droite {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
 .topbar__nav {
   display: flex;
   gap: 4px;
@@ -111,27 +105,20 @@ p { margin: 0 0 1em; }
   padding: 0;
 }
 
-/* Sélecteur de langue EN / FR */
-.langues {
+/* Lien de langue (FR / EN) à droite de Contact */
+.topbar__langue {
   display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 2px;
-  border: 1px solid var(--trait);
-  border-radius: var(--rayon);
+  align-items: center;
 }
-.langues a {
-  display: inline-block;
-  padding: 6px 9px;
-  border-radius: 3px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  color: var(--gris);
+.topbar__langue::before {
+  content: "";
+  width: 1px;
+  height: 14px;
+  margin: 0 6px 0 4px;
+  background: var(--trait);
 }
-.langues a:hover { color: var(--encre); }
-.langues a[aria-current="page"] { background: var(--surface); color: var(--encre); }
+.topbar__nav .topbar__langue a { color: var(--encre); font-weight: 600; }
+.topbar__nav .topbar__langue a:hover { color: var(--accent); }
 
 .topbar__nav a {
   display: inline-block;
@@ -756,7 +743,6 @@ p { margin: 0 0 1em; }
 @media (max-width: 560px) {
   .wrap { padding-left: 18px; padding-right: 18px; }
   .topbar__inner { flex-direction: column; align-items: flex-start; gap: 0; padding-top: 12px; padding-bottom: 4px; }
-  .topbar__droite { width: 100%; justify-content: space-between; }
   .topbar__nav { margin-left: -12px; }
   .grille { grid-template-columns: 1fr; }
   .suite { flex-direction: column; }

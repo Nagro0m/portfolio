@@ -55,22 +55,22 @@
   <header class="topbar">
     <div class="wrap topbar__inner">
       <a class="topbar__nom" href="{{ t.accueil | relative_url }}">{{ p.nom }}</a>
-      <div class="topbar__droite">
-        <nav aria-label="Navigation">
-          <ul class="topbar__nav">
-            <li><a href="{{ t.accueil | append: '#projets' | relative_url }}">{{ t.nav_projets }}</a></li>
-            <li><a href="{{ t.accueil | append: '#parcours' | relative_url }}">{{ t.nav_apropos }}</a></li>
-            {%- if pl.cv != "" and pl.cv %}
-            <li><a href="{{ pl.cv | relative_url }}" target="_blank" rel="noopener">{{ t.nav_cv }}</a></li>
-            {%- endif %}
-            <li><a href="{{ t.accueil | append: '#contact' | relative_url }}">{{ t.nav_contact }}</a></li>
-          </ul>
-        </nav>
-        <ul class="langues" aria-label="Language / Langue">
-          <li><a href="{{ url_en | relative_url }}" hreflang="en" lang="en" title="English"{% if lang == 'en' %} aria-current="page"{% endif %}>EN</a></li>
-          <li><a href="{{ url_fr | relative_url }}" hreflang="fr" lang="fr" title="Français"{% if lang == 'fr' %} aria-current="page"{% endif %}>FR</a></li>
+      <nav aria-label="Navigation">
+        <ul class="topbar__nav">
+          <li><a href="{{ t.accueil | append: '#projets' | relative_url }}">{{ t.nav_projets }}</a></li>
+          <li><a href="{{ t.accueil | append: '#parcours' | relative_url }}">{{ t.nav_apropos }}</a></li>
+          {%- if pl.cv != "" and pl.cv %}
+          <li><a href="{{ pl.cv | relative_url }}" target="_blank" rel="noopener">{{ t.nav_cv }}</a></li>
+          {%- endif %}
+          <li><a href="{{ t.accueil | append: '#contact' | relative_url }}">{{ t.nav_contact }}</a></li>
+          {%- comment %} Lien vers la même page dans l'autre langue {% endcomment %}
+          {%- if lang == 'en' %}
+          <li class="topbar__langue"><a href="{{ url_fr | relative_url }}" hreflang="fr" lang="fr" title="Version française">FR</a></li>
+          {%- else %}
+          <li class="topbar__langue"><a href="{{ url_en | relative_url }}" hreflang="en" lang="en" title="English version">EN</a></li>
+          {%- endif %}
         </ul>
-      </div>
+      </nav>
     </div>
   </header>
 
