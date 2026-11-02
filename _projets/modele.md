@@ -57,7 +57,9 @@ Du texte normal, avec du `code en ligne` et des **mots en gras**.
 
 Une image :
 
-![Description de l'image](/assets/img/projets/nom-du-jeu/schema.webp)
+![Description de l'image]({{ '/assets/img/projets/nom-du-jeu/schema.webp' | relative_url }})
+
+(Garde bien `{{ '...' | relative_url }}` autour du chemin, sinon l'image ne s'affiche pas sur GitHub.)
 
 Un nom de fichier au-dessus d'un bloc de code (optionnel) :
 

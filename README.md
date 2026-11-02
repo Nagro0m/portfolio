@@ -48,7 +48,9 @@ Installe Ruby (rubyinstaller.org, version avec Devkit), puis dans ce dossier :
 
 ```
 bundle install
-bundle exec jekyll serve
+bundle exec jekyll serve --livereload
 ```
 
-Ouvre http://localhost:4000
+Ouvre http://localhost:4000/portfolio/ — la page se recharge toute seule à chaque sauvegarde.
+
+⚠️ Live Server (VS Code) ne marche pas : il affiche les fichiers bruts sans les assembler.

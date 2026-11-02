@@ -4,8 +4,11 @@
 
 title: Morgan Fourquet — Développeur gameplay
 description: Développeur jeu vidéo en formation à Montpellier, spécialisé gameplay (GPE) et 3C sur Unreal Engine (C++) et Unity (C#).
-url: "https://morganfourquet.com"
-baseurl: ""
+# Site publié sur https://nagro0m.github.io/portfolio/
+# Le jour où tu passes sur morganfourquet.com :
+#   url: "https://morganfourquet.com"  et  baseurl: ""  + recrée le fichier CNAME
+url: "https://nagro0m.github.io"
+baseurl: "/portfolio"
 lang: fr
 
 collections:
