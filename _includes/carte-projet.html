@@ -11,11 +11,13 @@
 {%- assign c_equipe = tr.equipe | default: base.equipe -%}
 {%- assign c_duree = tr.duree | default: base.duree -%}
 {%- assign c_moteur = tr.moteur | default: base.moteur -%}
+{%- include images-projet.html slug=base.slug -%}
+{%- assign c_couverture = base.couverture | default: img_couverture -%}
 <article class="carte type--{{ base.categorie }}">
   <a class="carte__lien" href="{{ c_url | relative_url }}">
-    <div class="carte__media{% unless base.couverture %} carte__media--vide{% endunless %}">
-      {%- if base.couverture %}
-      <img src="{{ base.couverture | relative_url }}" alt="" loading="lazy" width="960" height="540">
+    <div class="carte__media{% unless c_couverture %} carte__media--vide{% endunless %}">
+      {%- if c_couverture %}
+      <img src="{{ c_couverture | relative_url }}" alt="" loading="lazy" width="960" height="540">
       {%- else %}
       <span class="carte__titre-vide" aria-hidden="true">{{ c_titre }}</span>
       {%- endif %}

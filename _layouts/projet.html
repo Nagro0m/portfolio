@@ -20,6 +20,9 @@ layout: default
 {%- assign x_plateforme = page.plateforme | default: base.plateforme -%}
 {%- assign x_technos = page.technos | default: base.technos -%}
 {%- assign technique = content | strip_html | strip -%}
+{%- include images-projet.html slug=base.slug -%}
+{%- assign x_couverture = base.couverture | default: img_couverture -%}
+{%- assign x_galerie = base.galerie | default: img_galerie -%}
 
 {%- assign projets = site.projets | where: "lang", "en" | sort: "ordre" -%}
 {%- for pr in projets -%}
@@ -41,11 +44,11 @@ layout: default
     {%- if base.youtube %}
     <iframe src="https://www.youtube-nocookie.com/embed/{{ base.youtube }}" title="{{ t.video_de }} {{ page.title }}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
     {%- elsif base.video %}
-    <video controls preload="none" playsinline {% if base.couverture %}poster="{{ base.couverture | relative_url }}"{% endif %}>
+    <video controls preload="none" playsinline {% if x_couverture %}poster="{{ x_couverture | relative_url }}"{% endif %}>
       <source src="{{ base.video | relative_url }}" type="video/mp4">
     </video>
-    {%- elsif base.couverture %}
-    <img src="{{ base.couverture | relative_url }}" alt="{{ t.capture_de }} {{ page.title }}">
+    {%- elsif x_couverture %}
+    <img src="{{ x_couverture | relative_url }}" alt="{{ t.capture_de }} {{ page.title }}">
     {%- endif %}
   </div>
 
@@ -69,11 +72,11 @@ layout: default
       </section>
       {%- endif %}
 
-      {%- if base.galerie %}
+      {%- if x_galerie.size > 0 %}
       <section>
         <h2>{{ t.captures }}</h2>
         <div class="galerie">
-          {%- for img in base.galerie %}
+          {%- for img in x_galerie %}
           {%- assign src = img.image | default: img %}
           {%- if lang == 'fr' %}{% assign legende = img.legende_fr | default: img.legende %}{% else %}{% assign legende = img.legende %}{% endif %}
           {%- capture alt_defaut %}{{ t.capture_de }} {{ page.title }} ({{ forloop.index }}){% endcapture %}

@@ -1,0 +1,18 @@
+{%- assign dossier_img = '/assets/img/projets/' | append: include.slug | append: '/' -%}
+{%- assign formats_img = '.webp|.png|.jpg|.jpeg|.gif|.avif|.svg' | split: '|' -%}
+{%- assign img_couverture = nil -%}
+{%- assign img_galerie = '' | split: '' -%}
+{%- for f in site.static_files -%}
+  {%- if f.path contains dossier_img -%}
+    {%- assign ext = f.extname | downcase -%}
+    {%- if formats_img contains ext -%}
+      {%- assign nom_img = f.basename | downcase -%}
+      {%- if nom_img == 'couverture' or nom_img == 'cover' -%}
+        {%- assign img_couverture = f.path -%}
+      {%- else -%}
+        {%- assign img_galerie = img_galerie | push: f.path -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign img_galerie = img_galerie | sort -%}

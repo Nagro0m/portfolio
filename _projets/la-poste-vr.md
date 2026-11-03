@@ -9,7 +9,6 @@ plateforme: Meta Quest (VR)
 role: Student co-lead, gameplay programmer
 duree: 1 month
 
-couverture: /assets/img/projets/la-poste-vr/couverture.webp
 apercu: /assets/video/la-poste-vr-apercu.mp4
 video: /assets/video/la-poste-vr.mp4
 
@@ -26,11 +25,6 @@ contributions:
   - Polished and wrapped up the whole project with the other lead
 
 technos: [Unity, C#, VR, Meta Quest, Serious game]
-
-galerie:
-  - image: /assets/img/projets/la-poste-vr/capture-1.webp
-  - image: /assets/img/projets/la-poste-vr/capture-2.webp
-  - image: /assets/img/projets/la-poste-vr/capture-3.webp
 
 liens:
   - nom: Midi Libre article (French)

@@ -8,7 +8,6 @@ moteur: Unreal Engine
 role: Gameplay programmer, room generation
 duree: 48 hours
 
-couverture: /assets/img/projets/masked/couverture.webp
 apercu: /assets/video/masked-apercu.mp4
 video: /assets/video/masked.mp4
 
@@ -21,11 +20,6 @@ contributions:
   - The events that trigger when you walk into a new room
 
 technos: [Unreal Engine, C++, Blueprint, Procedural generation, Perforce]
-
-galerie:
-  - image: /assets/img/projets/masked/capture-1.webp
-  - image: /assets/img/projets/masked/capture-2.webp
-  - image: /assets/img/projets/masked/capture-3.webp
 
 liens:
   - nom: Download the game

@@ -6,7 +6,6 @@ categorie: ecole
 moteur: Unreal Engine
 role: 3C programmer
 
-couverture: /assets/img/projets/rayman-m-remake/couverture.webp
 apercu: /assets/video/rayman-m-remake-apercu.mp4
 video: /assets/video/rayman-m-remake.mp4
 
@@ -20,11 +19,6 @@ contributions:
   - "Helped finish the game: cleaned up the assets, added visual effects and improved the track"
 
 technos: [Unreal Engine, C++, Blueprint, Multiplayer, Steam, Perforce]
-
-galerie:
-  - image: /assets/img/projets/rayman-m-remake/capture-1.webp
-  - image: /assets/img/projets/rayman-m-remake/capture-2.webp
-  - image: /assets/img/projets/rayman-m-remake/capture-3.webp
 
 liens:
   - nom: Download the game

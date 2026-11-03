@@ -9,7 +9,6 @@ role: Gameplay programmer (pair project)
 equipe: 2 people
 duree: 2 weeks
 
-couverture: /assets/img/projets/tank-war/couverture.webp
 apercu: /assets/video/tank-war-apercu.mp4
 video: /assets/video/tank-war.mp4
 
@@ -26,11 +25,6 @@ contributions:
   - Two-player fights with shells
 
 technos: [C++, SFML, Local multiplayer, Procedural generation, Git]
-
-galerie:
-  - image: /assets/img/projets/tank-war/capture-1.webp
-  - image: /assets/img/projets/tank-war/capture-2.webp
-  - image: /assets/img/projets/tank-war/capture-3.webp
 
 liens:
   - nom: Source code (GitHub)

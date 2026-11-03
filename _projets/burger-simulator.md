@@ -7,7 +7,6 @@ moteur: Unreal Engine 5.6
 role: Solo, every system (3C, gameplay, UI, AI)
 equipe: Solo
 
-couverture: /assets/img/projets/burger-simulator/couverture.webp
 apercu: /assets/video/burger-simulator-apercu.mp4
 video: /assets/video/burger-simulator.mp4
 
@@ -24,11 +23,6 @@ contributions:
   - The whole UI
 
 technos: [Unreal Engine 5, C++, AI, UI, Game design]
-
-galerie:
-  - image: /assets/img/projets/burger-simulator/capture-1.webp
-  - image: /assets/img/projets/burger-simulator/capture-2.webp
-  - image: /assets/img/projets/burger-simulator/capture-3.webp
 
 liens:
   - nom: Download the game

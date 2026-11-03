@@ -6,7 +6,6 @@ categorie: ecole
 moteur: Unreal Engine 5.4
 role: Programming lead, gameplay programmer
 
-couverture: /assets/img/projets/bamphy/couverture.webp
 apercu: /assets/video/bamphy-apercu.mp4
 video: /assets/video/bamphy.mp4
 
@@ -20,11 +19,6 @@ contributions:
   - "Programmed the gameplay systems: doors, levers, pressure plates and interactions"
 
 technos: [Unreal Engine 5, C++, Blueprint, Perforce]
-
-galerie:
-  - image: /assets/img/projets/bamphy/capture-1.webp
-  - image: /assets/img/projets/bamphy/capture-2.webp
-  - image: /assets/img/projets/bamphy/capture-3.webp
 
 liens:
   - nom: Download the game

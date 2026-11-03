@@ -23,7 +23,11 @@
   {%- assign titre_page = page.title | default: site.title -%}
 {%- endif -%}
 {%- assign desc_page = page.accroche | default: pl.description -%}
-{%- assign img_page = page.couverture | default: '/assets/img/apercu-site.jpg' -%}
+{%- assign img_page = '/assets/img/apercu-site.jpg' -%}
+{%- if page.collection == 'projets' -%}
+  {%- include images-projet.html slug=page.slug -%}
+  {%- assign img_page = page.couverture | default: img_couverture | default: img_page -%}
+{%- endif -%}
 <!DOCTYPE html>
 <html lang="{{ lang }}">
 <head>
