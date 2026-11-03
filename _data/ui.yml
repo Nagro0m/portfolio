@@ -26,6 +26,7 @@ en:
   sous_le_capot_tag: technical
   capture_de: Screenshot of
   video_de: Video of
+  videos: Videos
   role: My role
   equipe: Team
   duree: Duration
@@ -74,6 +75,7 @@ fr:
   sous_le_capot_tag: partie technique
   capture_de: Capture de
   video_de: Vidéo de
+  videos: Vidéos
   role: Mon rôle
   equipe: Équipe
   duree: Durée

@@ -7,7 +7,13 @@ moteur: Unreal Engine 5.4
 role: Programming lead, gameplay programmer
 
 apercu: /assets/video/bamphy-apercu.mp4
-video: /assets/video/bamphy.mp4
+videos: 
+- titre: Trailer
+  titre_fr: Bande-annonce
+  fichier: /assets/video/bamphy.mp4
+- titre: Mechanics demo
+  titre_fr: Démo des mécaniques
+  fichier: /assets/video/bamphy-mechanics.mp4
 
 resume: >-
   You explore an old temple inspired by Angkor Wat and solve puzzles that are linked

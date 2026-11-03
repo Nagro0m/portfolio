@@ -3,10 +3,10 @@ title: Harvest Panic
 accroche: Un petit jeu de ferme où des corbeaux essaient de manger le blé avant qu'on ait pu le récolter.
 role: Solo, tous les systèmes
 equipe: Solo
-duree: 3 à 4 jours
+duree: 2 semaines
 
 resume: >-
-  Un petit jeu que je fais pour mon portfolio, de zéro en Blueprints, sur ma propre map :
+  Un petit jeu fais pour mon portfolio, de zéro en Blueprints, avec des assets Fab.
   une petite ferme et ses champs de blé. On récolte soi-même pendant que des corbeaux
   arrivent par vagues pour manger le blé. Le blé récolté rapporte des pièces, et celui que
   les corbeaux mangent doit être remboursé avec des intérêts.

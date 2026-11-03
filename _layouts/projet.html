@@ -40,6 +40,39 @@ layout: default
     <p class="projet__accroche">{{ x_accroche }}</p>
   </header>
 
+  {%- if base.videos and base.videos.size > 0 %}
+  {%- assign plusieurs = false %}
+  {%- if base.videos.size > 1 %}{% assign plusieurs = true %}{% endif %}
+  {%- if plusieurs %}
+  <div class="videos__onglets" role="tablist" aria-label="{{ t.videos }}">
+    {%- for v in base.videos %}
+    {%- if lang == 'fr' %}{% assign v_titre = v.titre_fr | default: v.titre %}{% else %}{% assign v_titre = v.titre %}{% endif %}
+    <button type="button" role="tab" class="bouton{% unless forloop.first %} bouton--ligne{% endunless %}" id="onglet-video-{{ forloop.index }}" aria-controls="video-{{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"{% unless forloop.first %} tabindex="-1"{% endunless %}>{{ v_titre | default: forloop.index }}</button>
+    {%- endfor %}
+  </div>
+  {%- endif %}
+  <div class="projet__media">
+    {%- for v in base.videos %}
+    {%- if lang == 'fr' %}{% assign v_titre = v.titre_fr | default: v.titre %}{% else %}{% assign v_titre = v.titre %}{% endif %}
+    {%- assign v_poster = v.poster %}
+    {%- if forloop.first and v_poster == nil %}{% assign v_poster = x_couverture %}{% endif %}
+    <div class="projet__video" id="video-{{ forloop.index }}"{% if plusieurs %} role="tabpanel" aria-labelledby="onglet-video-{{ forloop.index }}"{% endif %}{% unless forloop.first %} hidden{% endunless %}>
+      {%- if v.youtube %}
+      <iframe src="https://www.youtube-nocookie.com/embed/{{ v.youtube }}" title="{{ v_titre | default: page.title }}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
+      {%- else %}
+      {%- if v_poster %}
+      <video controls preload="none" playsinline poster="{{ v_poster | relative_url }}">
+        <source src="{{ v.fichier | relative_url }}" type="video/mp4">
+      {%- else %}
+      <video controls preload="metadata" playsinline>
+        <source src="{{ v.fichier | relative_url }}#t=0.5" type="video/mp4">
+      {%- endif %}
+      </video>
+      {%- endif %}
+    </div>
+    {%- endfor %}
+  </div>
+  {%- else %}
   <div class="projet__media">
     {%- if base.youtube %}
     <iframe src="https://www.youtube-nocookie.com/embed/{{ base.youtube }}" title="{{ t.video_de }} {{ page.title }}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
@@ -51,6 +84,7 @@ layout: default
     <img src="{{ x_couverture | relative_url }}" alt="{{ t.capture_de }} {{ page.title }}">
     {%- endif %}
   </div>
+  {%- endif %}
 
   <div class="projet__corps">
     <div class="projet__principal">
@@ -81,7 +115,7 @@ layout: default
           {%- if lang == 'fr' %}{% assign legende = img.legende_fr | default: img.legende %}{% else %}{% assign legende = img.legende %}{% endif %}
           {%- capture alt_defaut %}{{ t.capture_de }} {{ page.title }} ({{ forloop.index }}){% endcapture %}
           <figure>
-            <a href="{{ src | relative_url }}" target="_blank" rel="noopener">
+            <a href="{{ src | relative_url }}">
               <img src="{{ src | relative_url }}" alt="{{ legende | default: alt_defaut | escape }}" loading="lazy">
             </a>
             {%- if legende %}<figcaption>{{ legende }}</figcaption>{% endif %}
