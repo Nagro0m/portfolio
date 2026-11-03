@@ -1,0 +1,19 @@
+- id: mountain-world-sim
+  nom: MountainWorldSim
+  outils: [Unreal Engine 5, C++, Chaos Vehicles, Perforce]
+  en: A ski resort simulation I contribute to as a volunteer. I worked on the snowplow (Chaos vehicle, steering wheel force feedback, cruise control) and a crowd system for 100 to 300 skiers.
+  fr: Une simulation de station de ski sur laquelle je contribue bénévolement. J'ai travaillé sur la déneigeuse (véhicule Chaos, retour de force au volant, régulateur de vitesse) et sur une foule de 100 à 300 skieurs.
+
+- id: pcg-buildings
+  nom: Procedural buildings
+  nom_fr: Bâtiments procéduraux
+  outils: [Unreal Engine 5.7, PCG]
+  en: Buildings generated with PCG, with stacked floors that can step back, walls tiled along splines, rooftops and door openings.
+  fr: Des bâtiments générés avec PCG, avec des étages empilés qui peuvent se rétrécir, des murs posés le long de splines, des toits et des ouvertures de portes.
+
+- id: uefn-painting
+  nom: UEFN painting mechanic
+  nom_fr: Mécanique de peinture UEFN
+  outils: [UEFN, Verse, Materials]
+  en: A recreation of the camouflage painting mechanic from Meccha Chameleon in Fortnite's editor, using Verse and zone-based materials.
+  fr: Une recréation de la mécanique de camouflage par peinture de Meccha Chameleon dans l'éditeur de Fortnite, avec Verse et des matériaux par zones.

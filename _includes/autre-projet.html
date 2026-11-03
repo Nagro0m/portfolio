@@ -1,0 +1,56 @@
+{%- assign a = include.a -%}
+{%- assign t_a = site.data.ui[include.lang] -%}
+{%- if include.lang == 'fr' -%}
+  {%- assign a_nom = a.nom_fr | default: a.nom -%}
+  {%- assign a_desc = a.fr | default: a.en -%}
+{%- else -%}
+  {%- assign a_nom = a.nom -%}
+  {%- assign a_desc = a.en -%}
+{%- endif -%}
+{%- assign a_media = a.media | default: a.image -%}
+{%- unless a_media -%}
+  {%- for f in site.static_files -%}
+    {%- if f.path contains '/assets/img/autres/' -%}
+      {%- assign nom_fichier = f.basename | downcase -%}
+      {%- if nom_fichier == a.id -%}{%- assign a_media = f.path -%}{%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endunless -%}
+{%- assign a_type = 'image' -%}
+{%- if a_media -%}
+  {%- assign ext_media = a_media | split: '.' | last | downcase -%}
+  {%- if ext_media == 'mp4' or ext_media == 'webm' or ext_media == 'mov' -%}{%- assign a_type = 'video' -%}{%- endif -%}
+{%- endif -%}
+<li class="autre{% if a.lien %} autre--lien{% endif %}">
+  {%- if a_media %}
+  <button type="button" class="autre__vignette autre__vignette--media" data-media="{{ a_media | relative_url }}" data-type="{{ a_type }}" aria-label="{{ t_a.agrandir }} : {{ a_nom }}">
+    {%- if a_type == 'video' %}
+    <video src="{{ a_media | relative_url }}#t=0.1" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+    <span class="autre__lecture" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
+    {%- else %}
+    <img src="{{ a_media | relative_url }}" alt="" loading="lazy">
+    {%- endif %}
+  </button>
+  {%- else %}
+  <div class="autre__vignette" aria-hidden="true"><span>{{ a_nom | slice: 0 }}</span></div>
+  {%- endif %}
+  {%- if a.lien %}
+  <a class="autre__lien" href="{{ a.lien | relative_url }}" target="_blank" rel="noopener">
+  {%- else %}
+  <div class="autre__lien">
+  {%- endif %}
+    <div class="autre__texte">
+      <h3 class="autre__nom">{{ a_nom }}{% if a.lien %} <span aria-hidden="true">↗</span>{% endif %}</h3>
+      <p class="autre__desc">{{ a_desc }}</p>
+    </div>
+    {%- if a.outils %}
+    <ul class="autre__outils">
+      {%- for o in a.outils %}<li>{{ o }}</li>{% endfor %}
+    </ul>
+    {%- endif %}
+  {%- if a.lien %}
+  </a>
+  {%- else %}
+  </div>
+  {%- endif %}
+</li>

@@ -16,3 +16,17 @@
   {%- endif -%}
 {%- endfor -%}
 {%- assign img_galerie = img_galerie | sort -%}
+{%- assign vid_principale = nil -%}
+{%- assign vid_apercu = nil -%}
+{%- assign nom_video = include.slug | downcase -%}
+{%- assign nom_apercu = include.slug | append: '-apercu' | downcase -%}
+{%- for f in site.static_files -%}
+  {%- if f.path contains '/assets/video/' -%}
+    {%- assign ext = f.extname | downcase -%}
+    {%- if ext == '.mp4' or ext == '.webm' -%}
+      {%- assign nom_vid = f.basename | downcase -%}
+      {%- if nom_vid == nom_video -%}{%- assign vid_principale = f.path -%}{%- endif -%}
+      {%- if nom_vid == nom_apercu -%}{%- assign vid_apercu = f.path -%}{%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}

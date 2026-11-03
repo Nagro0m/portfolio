@@ -12,6 +12,9 @@ en:
   projets: Projects
   projets_indice: Open a project to see the video, what I worked on and the technical details.
   projets_compte: projects below
+  autres_titre: Other projects
+  autres_indice: Smaller projects, tools and experiments.
+  autres_voir_plus: Show %n more
   apropos: About
   parcours: Background
   competences: Skills
@@ -27,6 +30,7 @@ en:
   capture_de: Screenshot of
   video_de: Video of
   videos: Videos
+  agrandir: Enlarge
   role: My role
   equipe: Team
   duree: Duration
@@ -61,6 +65,9 @@ fr:
   projets: Projets
   projets_indice: Ouvrez un projet pour voir la vidéo, ce que j'ai fait et le détail technique.
   projets_compte: projets ci-dessous
+  autres_titre: Autres projets
+  autres_indice: Des projets plus petits, des outils et des expériences.
+  autres_voir_plus: Voir les %n autres
   apropos: À propos
   parcours: Parcours
   competences: Compétences
@@ -76,6 +83,7 @@ fr:
   capture_de: Capture de
   video_de: Vidéo de
   videos: Vidéos
+  agrandir: Agrandir
   role: Mon rôle
   equipe: Équipe
   duree: Durée

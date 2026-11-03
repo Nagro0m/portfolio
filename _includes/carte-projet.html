@@ -21,8 +21,9 @@
       {%- else %}
       <span class="carte__titre-vide" aria-hidden="true">{{ c_titre }}</span>
       {%- endif %}
-      {%- if base.apercu %}
-      <video data-apercu="{{ base.apercu | relative_url }}" muted loop playsinline preload="none" aria-hidden="true"></video>
+      {%- assign c_apercu = base.apercu | default: vid_apercu %}
+      {%- if c_apercu %}
+      <video data-apercu="{{ c_apercu | relative_url }}" muted loop playsinline preload="none" aria-hidden="true"></video>
       {%- endif %}
       <span class="carte__type">{{ t.categories[base.categorie] }}</span>
       {%- if base.en_cours %}<span class="carte__statut">{{ t.en_cours }}</span>{% endif %}

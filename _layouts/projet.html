@@ -76,9 +76,10 @@ layout: default
   <div class="projet__media">
     {%- if base.youtube %}
     <iframe src="https://www.youtube-nocookie.com/embed/{{ base.youtube }}" title="{{ t.video_de }} {{ page.title }}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
-    {%- elsif base.video %}
+    {%- elsif base.video or vid_principale %}
+    {%- assign x_video = base.video | default: vid_principale %}
     <video controls preload="none" playsinline {% if x_couverture %}poster="{{ x_couverture | relative_url }}"{% endif %}>
-      <source src="{{ base.video | relative_url }}" type="video/mp4">
+      <source src="{{ x_video | relative_url }}" type="video/mp4">
     </video>
     {%- elsif x_couverture %}
     <img src="{{ x_couverture | relative_url }}" alt="{{ t.capture_de }} {{ page.title }}">

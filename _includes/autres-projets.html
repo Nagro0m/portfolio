@@ -1,0 +1,28 @@
+{%- assign lang = page.lang | default: 'en' -%}
+{%- assign t = site.data.ui[lang] -%}
+{%- assign autres = site.data.autres_projets -%}
+{%- if autres and autres.size > 0 -%}
+{%- assign visibles = 4 -%}
+<section class="section section--secondaire wrap" id="autres" aria-labelledby="titre-autres">
+  <div class="section__tete">
+    <h2 id="titre-autres">{{ t.autres_titre }}</h2>
+    <p>{{ t.autres_indice }}</p>
+  </div>
+  <ul class="autres">
+    {%- for a in autres limit: visibles %}
+    {% include autre-projet.html a=a lang=lang %}
+    {%- endfor %}
+  </ul>
+  {%- if autres.size > visibles %}
+  {%- assign reste = autres.size | minus: visibles %}
+  <details class="autres__plus">
+    <summary class="bouton bouton--ligne">{{ t.autres_voir_plus | replace: '%n', reste }}</summary>
+    <ul class="autres">
+      {%- for a in autres offset: visibles %}
+      {% include autre-projet.html a=a lang=lang %}
+      {%- endfor %}
+    </ul>
+  </details>
+  {%- endif %}
+</section>
+{%- endif -%}

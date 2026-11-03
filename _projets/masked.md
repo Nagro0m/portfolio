@@ -1,7 +1,7 @@
 ---
 title: Masked
 accroche: A room-by-room roguelike made in 48 hours at Global Game Jam 2026, on the theme "Mask".
-ordre: 7
+ordre: 8
 categorie: jam
 annee: 2026
 moteur: Unreal Engine

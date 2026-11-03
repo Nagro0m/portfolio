@@ -1,7 +1,7 @@
 ---
 title: Tank War
 accroche: My first game, a two-player tank battle running on an engine we wrote in class.
-ordre: 5
+ordre: 6
 categorie: ecole
 annee: 2024
 moteur: Custom engine (C++ / SFML)
